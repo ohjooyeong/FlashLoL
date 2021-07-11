@@ -1,0 +1,27 @@
+{
+    "name": "flashlol-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js",
+        "backend": "nodemon index.js",
+        "frontend": "npm run start --prefix ../client",
+        "dev": "concurrently \"npm run backend\" \"npm run start --prefix ../client \""
+    },
+    "author": "ohjoo",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.21.1",
+        "cookie-parser": "^1.4.5",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "helmet": "^4.6.0",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "concurrently": "^6.2.0",
+        "nodemon": "^2.0.12"
+    }
+}
