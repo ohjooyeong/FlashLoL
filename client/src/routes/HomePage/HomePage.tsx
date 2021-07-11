@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SummonerSearchForm from '../components/SummonerSearchForm';
-import { RootState } from '../modules';
-import { getSummonerDataAsync } from '../modules/summoners';
+import SummonerSearchForm from '../../components/SummonerSearchForm';
+import { RootState } from '../../modules';
+import { getSummonerDataAsync } from '../../modules/summoners';
 
-function LandingPage() {
+function HomePage() {
   const { data, loading, error } = useSelector(
-    (state: RootState) => state.summoners.summonerData,
+    (state: RootState) => state.summoners.summonerProfile,
   );
 
   const dispatch = useDispatch();
@@ -24,4 +24,4 @@ function LandingPage() {
   );
 }
 
-export default LandingPage;
+export default HomePage;

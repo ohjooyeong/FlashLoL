@@ -1,8 +1,8 @@
 import React from 'react';
-import LandingPage from './page/LandingPage';
+import Router from './routes/Router';
 
 function App() {
-  return <LandingPage />;
+  return <Router />;
 }
 
 export default App;

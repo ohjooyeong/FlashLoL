@@ -3,8 +3,8 @@ import { ActionType } from 'typesafe-actions';
 import { SummonerDTO } from '../../api/summoner';
 import { AsyncState } from '../lib/reducerUtils';
 
-export type SummonerDataAction = ActionType<typeof actions>;
+export type SummonerProfileAction = ActionType<typeof actions>;
 
-export type SummonerDataState = {
-  summonerData: AsyncState<SummonerDTO, Error>;
+export type SummonerProfileState = {
+  summonerProfile: AsyncState<SummonerDTO, Error>;
 };

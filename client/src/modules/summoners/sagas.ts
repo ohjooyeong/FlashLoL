@@ -1,13 +1,11 @@
 import { all, fork, takeLatest, call, put } from 'redux-saga/effects';
-import { getSummonerDataAPI, SummonerDTO } from '../../api/summoner';
+import { getSummonerAPI, SummonerDTO } from '../../api/summoner';
 import { getSummonerDataAsync, GET_SUMMONER_REQUEST } from './actions';
 
-function* getSummonerData(
-  action: ReturnType<typeof getSummonerDataAsync.request>,
-) {
+function* getSummoner(action: ReturnType<typeof getSummonerDataAsync.request>) {
   try {
     const summonerData: SummonerDTO = yield call(
-      getSummonerDataAPI,
+      getSummonerAPI,
       action.payload,
     );
     yield put(getSummonerDataAsync.success(summonerData));
@@ -17,7 +15,7 @@ function* getSummonerData(
 }
 
 function* watchSummoner() {
-  yield takeLatest(GET_SUMMONER_REQUEST, getSummonerData);
+  yield takeLatest(GET_SUMMONER_REQUEST, getSummoner);
 }
 
 export default function* summonerSaga() {
