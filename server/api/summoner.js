@@ -12,9 +12,10 @@ const getSummonerIdAPI = async (summonerName) => {
             `${process.env.API_URL}/summoner/v4/summoners/by-name/${summonerName}`,
             { headers }
         );
+        console.log(response.data);
         return response.data;
     } catch (e) {
-        return console.log(e);
+        return e.response.data;
     }
 };
 
@@ -25,8 +26,8 @@ const getSummonerProfileInfo = async (summonerId) => {
             { headers }
         );
         return response.data;
-    } catch (error) {
-        return console.log(e);
+    } catch (e) {
+        return e.response.data;
     }
 };
 
