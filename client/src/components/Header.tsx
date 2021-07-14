@@ -1,18 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+
 import styled from 'styled-components';
-import { getSummonerDataAsync } from '../modules/summoners';
 import SummonerSearchForm from './SummonerSearchForm';
 import logoImage from '../assets/flashlollogo2.png';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
-function Header() {
-  const dispatch = useDispatch();
-
-  const onSubmitSummonerName = (summonerName: string) => {
-    dispatch(getSummonerDataAsync.request(summonerName));
-  };
-
+function Header({ history }: RouteComponentProps) {
   return (
     <Sheader>
       <HeaderWrapper>
@@ -27,7 +20,7 @@ function Header() {
             <SearchContent>
               <SummonerSearchForm
                 area={'Header'}
-                onSubmitSummonerName={onSubmitSummonerName}
+                history={history}
               ></SummonerSearchForm>
             </SearchContent>
           </SearchContainer>
@@ -162,4 +155,4 @@ const SearchContent = styled.div`
   height: 100px;
 `;
 
-export default Header;
+export default withRouter(Header);

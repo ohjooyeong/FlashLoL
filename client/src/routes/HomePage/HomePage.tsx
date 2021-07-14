@@ -1,21 +1,10 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import logoImage from '../../assets/flashlollogo2.png';
 import SummonerSearchForm from '../../components/SummonerSearchForm';
-import { RootState } from '../../modules';
-import { getSummonerDataAsync } from '../../modules/summoners';
 
-function HomePage() {
-  const { data, loading, error } = useSelector(
-    (state: RootState) => state.summoners.summonerProfile,
-  );
-
-  const dispatch = useDispatch();
-
-  const onSubmitSummonerName = (summonerName: string) => {
-    dispatch(getSummonerDataAsync.request(summonerName));
-  };
+function HomePage({ history }: RouteComponentProps) {
   return (
     <>
       <HContainer>
@@ -25,14 +14,8 @@ function HomePage() {
           </Logo>
         </MainLogo>
         <HomeSearchContainer>
-          <SummonerSearchForm
-            area={'Home'}
-            onSubmitSummonerName={onSubmitSummonerName}
-          />
+          <SummonerSearchForm history={history} area={'Home'} />
         </HomeSearchContainer>
-        {loading && <p style={{ textAlign: 'center' }}>로딩중..</p>}
-        {error && <p style={{ textAlign: 'center' }}>에러 발생!</p>}
-        {data && console.log(data)}
       </HContainer>
     </>
   );
@@ -65,4 +48,4 @@ const HomeSearchContainer = styled.div`
   margin-top: 1.5rem;
 `;
 
-export default HomePage;
+export default withRouter(HomePage);

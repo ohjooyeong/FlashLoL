@@ -1,24 +1,27 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 type SummonerNameFormProps = {
-  onSubmitSummonerName: (summonerName: string) => void;
   area: string;
+  history: any;
 };
 
-function SummonerSearchForm({
-  onSubmitSummonerName,
-  area,
-}: SummonerNameFormProps) {
+function SummonerSearchForm({ area, history }: SummonerNameFormProps) {
   const [input, setInput] = useState('');
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (input === '') return;
-    onSubmitSummonerName(input);
-  };
+  const onSubmit = useCallback<(e: FormEvent) => void>(
+    e => {
+      e.preventDefault();
+      if (input === '') return;
+      if (input) {
+        history.push(`/summoner/${input}`);
+      }
+      setInput('');
+    },
+    [input],
+  );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);

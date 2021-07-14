@@ -39,6 +39,7 @@ export interface SummonerProfile {
   veteran: boolean;
   freshBlood: boolean;
   inactive: boolean;
+  winning_rate: number;
   miniSeries: MiniSeriesDTO;
 }
 
@@ -51,7 +52,7 @@ export interface MiniSeriesDTO {
 
 export interface SummonerDTO {
   apiStatus: APIStatusDTO;
-  summonerProfile?: {
+  summonerProfile: {
     info: SummonerInfo;
     profile: Array<SummonerProfile>;
   };
