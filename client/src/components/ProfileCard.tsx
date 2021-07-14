@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styled from 'styled-components';
 import { SummonerInfo, SummonerProfile } from '../api/summoner';
 
@@ -24,7 +25,15 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
     return (
       <React.Fragment key={p.leagueId + p.queueType + i}>
         <RankImgContainer>
-          <RankImg></RankImg>
+          <img
+            style={{
+              width: '60px',
+              height: '60px',
+              verticalAlign: 'middle',
+              borderStyle: 'none',
+            }}
+            src={`/images/ranked-emblems/${p.tier}.png`}
+          ></img>
         </RankImgContainer>
         <RankInfo>
           <RankTitle>{p.queueType}</RankTitle>
@@ -52,7 +61,15 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
       const emptyRank = rankArray.map((p, i) => {
         <React.Fragment key={p + i}>
           <RankImgContainer>
-            <RankImg></RankImg>
+            <img
+              style={{
+                width: '60px',
+                height: '60px',
+                verticalAlign: 'middle',
+                borderStyle: 'none',
+              }}
+              src="https://your.gg/v4/media/Unranked.png"
+            ></img>
           </RankImgContainer>
           <RankInfo>
             <RankTitle>{p}</RankTitle>
@@ -72,7 +89,15 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
           key={profileData[0].queueType + profileData[0].leagueId + 1}
         >
           <RankImgContainer>
-            <RankImg></RankImg>
+            <img
+              style={{
+                width: '60px',
+                height: '60px',
+                verticalAlign: 'middle',
+                borderStyle: 'none',
+              }}
+              src="https://your.gg/v4/media/Unranked.png"
+            ></img>
           </RankImgContainer>
           <RankInfo>
             <RankTitle>자유랭크</RankTitle>
@@ -92,7 +117,15 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
           key={profileData[0].queueType + profileData[0].leagueId + 1}
         >
           <RankImgContainer>
-            <RankImg></RankImg>
+            <img
+              style={{
+                width: '60px',
+                height: '60px',
+                verticalAlign: 'middle',
+                borderStyle: 'none',
+              }}
+              src="https://your.gg/v4/media/Unranked.png"
+            ></img>
           </RankImgContainer>
           <RankInfo>
             <RankTitle>솔로랭크</RankTitle>
@@ -116,7 +149,17 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
           <LeftCard>
             <ImgCenter>
               <a>
-                <ImgRound></ImgRound>
+                <img
+                  src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/profileicon/${profileInfo.profileIconId}.png`}
+                  style={{
+                    width: '90px',
+                    aspectRatio: 'auto 90 / 90',
+                    height: '90px',
+                    borderRadius: '50%',
+                    verticalAlign: 'middle',
+                    borderStyle: 'none',
+                  }}
+                ></img>
               </a>
             </ImgCenter>
             <NameCard>
@@ -159,15 +202,6 @@ const LeftCard = styled.div`
 
 const ImgCenter = styled.div`
   text-align: center;
-`;
-
-const ImgRound = styled.img`
-  width: 90px;
-  aspect-ratio: auto 90 / 90;
-  height: 90px;
-  border-radius: 50%;
-  vertical-align: middle;
-  border-style: none;
 `;
 
 const NameCard = styled.div`
