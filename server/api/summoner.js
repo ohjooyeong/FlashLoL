@@ -30,4 +30,33 @@ const getSummonerProfileInfo = async (summonerId) => {
     }
 };
 
-module.exports = { getSummonerIdAPI, getSummonerProfileInfo };
+const getMatchListAPI = async (summonerAccountId) => {
+    try {
+        const response = await axios.get(
+            `${process.env.API_URL}/match/v4/matchlists/by-account/${summonerAccountId}`,
+            { headers }
+        );
+        return response.data;
+    } catch (e) {
+        return e.response.data;
+    }
+};
+
+const getMatchDetailAPI = async (matchId) => {
+    try {
+        const response = await axios.get(
+            `${process.env.API_URL}/match/v4/matches/${matchId}`,
+            { headers }
+        );
+        return response.data;
+    } catch (e) {
+        return e.response.data;
+    }
+};
+
+module.exports = {
+    getSummonerIdAPI,
+    getSummonerProfileInfo,
+    getMatchListAPI,
+    getMatchDetailAPI,
+};

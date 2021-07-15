@@ -5,7 +5,6 @@ export async function getSummonerAPI(summonerName: string) {
     `http://localhost:5000/summoner`,
     { summonerName },
   );
-  console.log(response.data);
   return response.data;
 }
 

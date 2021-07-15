@@ -55,34 +55,36 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
     if (profileData.length == 2) {
       return rankCard;
     }
-
     if (profileData.length == 0) {
       const rankArray: Array<string> = ['솔로랭크', '자유랭크'];
       const emptyRank = rankArray.map((p, i) => {
-        <React.Fragment key={p + i}>
-          <RankImgContainer>
-            <img
-              style={{
-                width: '60px',
-                height: '60px',
-                verticalAlign: 'middle',
-                borderStyle: 'none',
-              }}
-              src="https://your.gg/v4/media/Unranked.png"
-            ></img>
-          </RankImgContainer>
-          <RankInfo>
-            <RankTitle>{p}</RankTitle>
-            <RankTier>Unranked</RankTier>
-            <RankScore>0% 0LP</RankScore>
-            <span>
-              <RankWin>0승</RankWin> <RankLose>0패</RankLose>
-            </span>
-          </RankInfo>
-        </React.Fragment>;
+        return (
+          <React.Fragment key={p + i + profileInfo.id}>
+            <RankImgContainer>
+              <img
+                style={{
+                  width: '60px',
+                  height: '60px',
+                  verticalAlign: 'middle',
+                  borderStyle: 'none',
+                }}
+                src="/images/ranked-emblems/Unranked.png"
+              ></img>
+            </RankImgContainer>
+            <RankInfo>
+              <RankTitle>{p}</RankTitle>
+              <RankTier>Unranked</RankTier>
+              <RankScore>0% 0LP</RankScore>
+              <span>
+                <RankWin>0승</RankWin> <RankLose>0패</RankLose>
+              </span>
+            </RankInfo>
+          </React.Fragment>
+        );
       });
       return emptyRank;
     }
+
     if (profileData[0].queueType === '솔로랭크') {
       const emptyRank = (
         <React.Fragment
@@ -96,7 +98,7 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
                 verticalAlign: 'middle',
                 borderStyle: 'none',
               }}
-              src="https://your.gg/v4/media/Unranked.png"
+              src="/images/ranked-emblems/Unranked.png"
             ></img>
           </RankImgContainer>
           <RankInfo>
@@ -124,7 +126,7 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
                 verticalAlign: 'middle',
                 borderStyle: 'none',
               }}
-              src="https://your.gg/v4/media/Unranked.png"
+              src="/images/ranked-emblems/Unranked.png"
             ></img>
           </RankImgContainer>
           <RankInfo>

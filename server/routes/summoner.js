@@ -1,5 +1,10 @@
 const express = require("express");
-const { getSummonerIdAPI, getSummonerProfileInfo } = require("../api/summoner");
+const {
+    getSummonerIdAPI,
+    getSummonerProfileInfo,
+    getMatchListAPI,
+    getMatchDetailAPI,
+} = require("../api/summoner");
 const qs = require("querystring");
 
 const router = express.Router();
@@ -53,6 +58,60 @@ router.post("/", async (req, res, next) => {
         return res
             .status(200)
             .json({ apiStatus: { success: true }, summonerProfile });
+    } catch (e) {
+        console.log(e);
+        next(e);
+    }
+});
+
+router.post("/game", async (req, res, next) => {
+    const {
+        body: { accountId },
+    } = req;
+    try {
+        const summonerGameInfo = {};
+        const matchlist = await getMatchListAPI(accountId);
+        if (matchlist.status && matchlist.status.status_code >= 400) {
+            return res.status(200).json({
+                apiStatus: {
+                    success: false,
+                    status: matchlist.status.status_code,
+                    message: matchlist.status.message,
+                },
+                summonerGameInfo: summonerGameInfo,
+            });
+        }
+        summonerGameInfo["matchlist"] = matchlist;
+
+        summonerGameInfo.matchlist.matches = matchlist.matches.slice(0, 5);
+        return res
+            .status(200)
+            .json({ apiStatus: { success: true }, summonerGameInfo });
+    } catch (e) {
+        console.log(e);
+        next(e);
+    }
+});
+
+router.get("/game/:gameId", async (req, res, next) => {
+    const {
+        params: { gameId },
+    } = req;
+    try {
+        const summonerDetailGameInfo = {};
+        const match = await getMatchDetailAPI(gameId);
+        if (match.status && match.status.status_code >= 400) {
+            return res.status(200).json({
+                apiStatus: {
+                    success: false,
+                    status: match.status.status_code,
+                    message: match.status.message,
+                },
+                summonerDetailGameInfo: summonerDetailGameInfo,
+            });
+        }
+        summonerDetailGameInfo["matchdata"] = match;
+        return res.status(200).json(summonerDetailGameInfo);
     } catch (e) {
         console.log(e);
         next(e);

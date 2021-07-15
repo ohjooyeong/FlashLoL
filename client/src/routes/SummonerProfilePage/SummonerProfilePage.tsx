@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import MatchCardList from '../../components/MatchCardList';
 import ProfileCard from '../../components/ProfileCard';
 import { RootState } from '../../modules';
 import { getSummonerDataAsync } from '../../modules/summoners';
@@ -30,6 +31,14 @@ function SummonerProfilePage({ match }: RouteComponentProps<PathParamsProps>) {
               profileData={data.summonerProfile.profile}
               profileInfo={data.summonerProfile.info}
             ></ProfileCard>
+            <MatchContainer>
+              <MatchHistoryBoxContainer></MatchHistoryBoxContainer>
+              <MatchListContainer>
+                <MatchCardList
+                  accountId={data.summonerProfile.info.accountId}
+                ></MatchCardList>
+              </MatchListContainer>
+            </MatchContainer>
           </SWrapper>
         </SContainer>
       )}
@@ -50,6 +59,16 @@ const SWrapper = styled.div`
   margin-left: auto;
   margin: auto;
   padding: 2rem 0.445rem;
+`;
+
+const MatchContainer = styled.div`
+  margin-top: 1rem;
+`;
+
+const MatchHistoryBoxContainer = styled.div``;
+
+const MatchListContainer = styled.div`
+  margin-top: 1rem;
 `;
 
 export default withRouter(SummonerProfilePage);
