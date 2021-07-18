@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-export async function getChampionAPI() {
-  const response = await axios.get<ChampionDTO>(
-    'http://localhost:5000/summoner/champion',
+export function getChampionAPI() {
+  return axios.get(
+    'http://ddragon.leagueoflegends.com/cdn/11.14.1/data/ko_KR/champion.json',
   );
-  return response.data;
 }
 
 export interface ChampionDTO {

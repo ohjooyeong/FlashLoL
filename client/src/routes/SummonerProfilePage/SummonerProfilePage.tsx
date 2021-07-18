@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
-import MatchCardList from '../../components/MatchCardList';
+import MatchCardList from '../../components/MatchCard/MatchCardList';
 import ProfileCard from '../../components/ProfileCard';
 import { RootState } from '../../modules';
 import { getSummonerDataAsync } from '../../modules/summoners';

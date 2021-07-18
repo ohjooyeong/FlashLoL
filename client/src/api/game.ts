@@ -28,19 +28,21 @@ export interface MatchReferenceDto {
 }
 
 export interface MatchDto {
-  gameId: number;
-  participantIdentities: Array<any>;
-  queueId: number;
-  gameType: string;
-  gameDuration: number;
-  teams: Array<any>;
-  platformId: string;
-  gameCreation: number;
-  seasonId: number;
-  gameVersion: string;
-  mapId: number;
-  gameMode: string;
-  participants: Array<any>;
+  matchdata: {
+    gameId: number;
+    participantIdentities: Array<any>;
+    queueId: number;
+    gameType: string;
+    gameDuration: number;
+    teams: Array<any>;
+    platformId: string;
+    gameCreation: number;
+    seasonId: number;
+    gameVersion: string;
+    mapId: number;
+    gameMode: string;
+    participants: Array<any>;
+  };
 }
 
 export interface MatchlistDto {

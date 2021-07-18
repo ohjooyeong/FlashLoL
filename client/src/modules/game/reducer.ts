@@ -38,7 +38,6 @@ export default createReducer<GameInfoState, GameInfoAction>(initialState, {
     }),
   [GET_GAME_DETAIL_INFO_SUCCESS]: (state, action) =>
     produce(state, draft => {
-      console.log(action.payload);
       draft.summonerDetailGameInfo.loading = false;
       draft.summonerDetailGameInfo.data =
         draft.summonerDetailGameInfo.data.concat(action.payload);

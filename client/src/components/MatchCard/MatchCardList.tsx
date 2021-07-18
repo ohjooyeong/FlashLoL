@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGameInfoAsync } from '../modules/game';
-import { RootState } from '../modules';
+import { getGameInfoAsync } from '../../modules/game';
+import { RootState } from '../../modules';
 import MatchCard from './MatchCard';
+import { getChampions } from '../../modules/champion';
 
 type MatchCardListProps = {
   accountId: string;
@@ -15,6 +16,7 @@ function MatchCardList({ accountId }: MatchCardListProps) {
   );
 
   useEffect(() => {
+    dispatch(getChampions());
     dispatch(getGameInfoAsync.request(accountId));
   }, []);
   return (

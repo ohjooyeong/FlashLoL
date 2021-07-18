@@ -4,7 +4,7 @@
 
 ## 프로젝트 소개
 
-Typescript와 React, Redux, Redux-saga 롤 전적검색사이트 클론 프로젝트
+Typescript와 React, Redux, Redux-saga Riot API를 활용한 롤 전적검색사이트 클론 프로젝트
 
 ### 프로젝트 사이트 링크
 

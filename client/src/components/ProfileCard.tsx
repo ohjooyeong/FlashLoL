@@ -231,15 +231,8 @@ const RankImgContainer = styled.div`
   align-items: center;
 `;
 
-const RankImg = styled.img`
-  width: 40px;
-  height: 40px;
-  vertical-align: middle;
-  border-style: none;
-`;
-
 const RankInfo = styled.div`
-  width: 100px;
+  width: 120px;
   margin-left: 1rem;
   display: flex;
   align-items: flex-start;
