@@ -39,7 +39,7 @@ router.post("/", async (req, res, next) => {
         const summonerProfile = {};
         const info = await getSummonerIdAPI(qsSummonerName);
         if (info.status && info.status.status_code >= 400) {
-            return res.status(200).json({
+            return res.status(info.status.status_code).json({
                 apiStatus: {
                     success: false,
                     status: info.status.status_code,
@@ -72,7 +72,7 @@ router.post("/game", async (req, res, next) => {
         const gameInfo = {};
         const matchlist = await getMatchListAPI(accountId);
         if (matchlist.status && matchlist.status.status_code >= 400) {
-            return res.status(400).json({
+            return res.status(matchlist.status.status_code).json({
                 apiStatus: {
                     success: false,
                     status: matchlist.status.status_code,

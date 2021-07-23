@@ -4,6 +4,7 @@ import { getGameInfoAsync } from '../../modules/game';
 import { RootState } from '../../modules';
 import MatchCard from './MatchCard';
 import { getChampions } from '../../modules/champion';
+import Loading from '../Loading';
 
 type MatchCardListProps = {
   accountId: string;
@@ -20,7 +21,13 @@ function MatchCardList({ accountId }: MatchCardListProps) {
     dispatch(getGameInfoAsync.request(accountId));
   }, []);
   return (
-    <>{!loading && data && data.apiStatus.success && <MatchCard></MatchCard>}</>
+    <>
+      {loading ? (
+        <Loading types={'bars'}></Loading>
+      ) : (
+        data && data.apiStatus.success && <MatchCard></MatchCard>
+      )}
+    </>
   );
 }
 

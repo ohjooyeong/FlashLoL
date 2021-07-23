@@ -1,12 +1,16 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import Helmet from 'react-helmet';
 import logoImage from '../../assets/flashlollogo2.png';
 import SummonerSearchForm from '../../components/SummonerSearchForm';
 
 function HomePage({ history }: RouteComponentProps) {
   return (
     <>
+      <Helmet>
+        <title>Flash LoL</title>
+      </Helmet>
       <HContainer>
         <MainLogo>
           <Logo>

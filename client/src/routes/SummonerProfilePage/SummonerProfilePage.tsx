@@ -6,7 +6,9 @@ import MatchCardList from '../../components/MatchCard/MatchCardList';
 import ProfileCard from '../../components/ProfileCard';
 import Loading from '../../components/Loading';
 import { RootState } from '../../modules';
+import Helmet from 'react-helmet';
 import { getSummonerDataAsync } from '../../modules/summoners';
+import Error from '../../components/Error';
 
 interface PathParamsProps {
   term: string;
@@ -26,8 +28,13 @@ function SummonerProfilePage({ match }: RouteComponentProps<PathParamsProps>) {
   return (
     <>
       <>
+        <Helmet>
+          <title>{term}</title>
+        </Helmet>
         {loading ? (
-          <Loading></Loading>
+          <Loading types={'spin'}></Loading>
+        ) : error ? (
+          <Error error={error} />
         ) : (
           data &&
           data.apiStatus.success &&
