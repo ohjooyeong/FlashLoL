@@ -4,6 +4,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import MatchCardList from '../../components/MatchCard/MatchCardList';
 import ProfileCard from '../../components/ProfileCard';
+import Loading from '../../components/Loading';
 import { RootState } from '../../modules';
 import { getSummonerDataAsync } from '../../modules/summoners';
 
@@ -24,24 +25,32 @@ function SummonerProfilePage({ match }: RouteComponentProps<PathParamsProps>) {
 
   return (
     <>
-      {!loading && data && data.summonerProfile && (
-        <SContainer>
-          <SWrapper>
-            <ProfileCard
-              profileData={data.summonerProfile.profile}
-              profileInfo={data.summonerProfile.info}
-            ></ProfileCard>
-            <MatchContainer>
-              <MatchHistoryBoxContainer></MatchHistoryBoxContainer>
-              <MatchListContainer>
-                <MatchCardList
-                  accountId={data.summonerProfile.info.accountId}
-                ></MatchCardList>
-              </MatchListContainer>
-            </MatchContainer>
-          </SWrapper>
-        </SContainer>
-      )}
+      <>
+        {loading ? (
+          <Loading></Loading>
+        ) : (
+          data &&
+          data.apiStatus.success &&
+          data.summonerProfile && (
+            <SContainer>
+              <SWrapper>
+                <ProfileCard
+                  profileData={data.summonerProfile.profile}
+                  profileInfo={data.summonerProfile.info}
+                ></ProfileCard>
+                <MatchContainer>
+                  <MatchHistoryBoxContainer></MatchHistoryBoxContainer>
+                  <MatchListContainer>
+                    <MatchCardList
+                      accountId={data.summonerProfile.info?.accountId}
+                    ></MatchCardList>
+                  </MatchListContainer>
+                </MatchContainer>
+              </SWrapper>
+            </SContainer>
+          )
+        )}
+      </>
     </>
   );
 }

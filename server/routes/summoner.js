@@ -69,53 +69,60 @@ router.post("/game", async (req, res, next) => {
         body: { accountId },
     } = req;
     try {
-        const summonerGameInfo = {};
+        const gameInfo = {};
         const matchlist = await getMatchListAPI(accountId);
         if (matchlist.status && matchlist.status.status_code >= 400) {
-            return res.status(200).json({
+            return res.status(400).json({
                 apiStatus: {
                     success: false,
                     status: matchlist.status.status_code,
                     message: matchlist.status.message,
                 },
-                summonerGameInfo: summonerGameInfo,
+                gameInfo: gameInfo,
             });
         }
-        summonerGameInfo["matchlist"] = matchlist;
+        gameInfo["matchlist"] = matchlist;
 
-        summonerGameInfo.matchlist.matches = matchlist.matches.slice(0, 5);
-        return res
-            .status(200)
-            .json({ apiStatus: { success: true }, summonerGameInfo });
+        gameInfo.matchlist.matches = matchlist.matches.slice(0, 5);
+        // await은 Promise 객체를 실행하고 기다려주지만, Promise 배열로는 그렇게 할 수 없기 때문이라는 사실을 알게됨
+        // 처음에 구현했던 arr.map을 통해 Promise 배열을 리턴하게 구현했기때문에 await은 의미가 없다.
+        const matchDetailList = await Promise.all(
+            gameInfo.matchlist.matches.map((m) => {
+                return getMatchDetailAPI(m.gameId);
+            })
+        );
+        gameInfo["matchDetailList"] = matchDetailList;
+
+        return res.status(200).json({ apiStatus: { success: true }, gameInfo });
     } catch (e) {
         console.log(e);
         next(e);
     }
 });
 
-router.get("/game/:gameId", async (req, res, next) => {
-    const {
-        params: { gameId },
-    } = req;
-    try {
-        const summonerDetailGameInfo = {};
-        const match = await getMatchDetailAPI(gameId);
-        if (match.status && match.status.status_code >= 400) {
-            return res.status(200).json({
-                apiStatus: {
-                    success: false,
-                    status: match.status.status_code,
-                    message: match.status.message,
-                },
-                summonerDetailGameInfo: summonerDetailGameInfo,
-            });
-        }
-        summonerDetailGameInfo["matchdata"] = match;
-        return res.status(200).json(summonerDetailGameInfo);
-    } catch (e) {
-        console.log(e);
-        next(e);
-    }
-});
+// router.get("/game/:gameId", async (req, res, next) => {
+//     const {
+//         params: { gameId },
+//     } = req;
+//     try {
+//         const summonerDetailGameInfo = {};
+//         const match = await getMatchDetailAPI(gameId);
+//         if (match.status && match.status.status_code >= 400) {
+//             return res.status(200).json({
+//                 apiStatus: {
+//                     success: false,
+//                     status: match.status.status_code,
+//                     message: match.status.message,
+//                 },
+//                 summonerDetailGameInfo: summonerDetailGameInfo,
+//             });
+//         }
+//         summonerDetailGameInfo["matchdata"] = match;
+//         return res.status(200).json(summonerDetailGameInfo);
+//     } catch (e) {
+//         console.log(e);
+//         next(e);
+//     }
+// });
 
 module.exports = router;

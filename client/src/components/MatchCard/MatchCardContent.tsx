@@ -72,328 +72,330 @@ function MatchCardContent({ gamedata, champions }: any) {
     return 0;
   });
 
-  console.log(team1, team2);
-
   const userInfo = gamedata.participants.filter((user: any) => {
-    if (participant[0].participantId === user.participantId) {
+    if (participant[0]?.participantId === user.participantId) {
       return user;
     }
   });
 
-  console.log(userInfo);
-
   const championData = [];
   for (const i in champions.data) {
-    if (champions.data[i].key == userInfo[0].championId) {
+    if (champions.data[i]?.key == userInfo[0]?.championId) {
       championData.push(champions.data[i]);
     }
   }
 
-  const win = userInfo[0].stats.win ? '승리' : '패배';
-  const queue = gamedata.queueId === 440 ? '자유 랭크' : '솔로 랭크';
+  const win = userInfo[0]?.stats.win ? '승리' : '패배';
+  const queue = gamedata?.queueId === 440 ? '자유 랭크' : '솔로 랭크';
 
   return (
     <>
-      <MatchHistoryResult winlose={userInfo[0].stats.win}></MatchHistoryResult>
-      <MatchHistoryContent>
-        <MatchHistoryRowStatus>
-          <MatchHistoryColStatus>
-            <ResultMatchText winlose={userInfo[0].stats.win}>
-              {win}
-            </ResultMatchText>
-            <ResultMatchType>{queue}</ResultMatchType>
-            <ResultMatchDuration>{`${moment(0)
-              .seconds(gamedata.gameDuration)
-              .format('mm:ss')}`}</ResultMatchDuration>
-            <ResultMatchDate>{`${moment(
-              gamedata.gameCreation,
-            ).fromNow()}`}</ResultMatchDate>
-          </MatchHistoryColStatus>
-        </MatchHistoryRowStatus>
-        <MatchHistoryRowStats>
-          <MatchHistoryColParticipant>
-            <Champion>
-              <img
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  border: '0',
-                  verticalAlign: 'middle',
-                }}
-                src={`http:////opgg-static.akamaized.net/images/lol/champion/${championData[0].id}.png`}
-              ></img>
-              <ChampionLevel></ChampionLevel>
-            </Champion>
-            <Spells>
-              <Spell>
-                <img
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: '0',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`/images/SummonerSpell/${userInfo[0].spell1Id}.png`}
-                ></img>
-              </Spell>
-              <Spell>
-                <img
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: '0',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`/images/SummonerSpell/${userInfo[0].spell2Id}.png`}
-                ></img>
-              </Spell>
-            </Spells>
-            <Runes>
-              <Rune>
-                <img
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: '0',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/perk/${userInfo[0].stats.perk0}.png`}
-                ></img>
-              </Rune>
-              <Rune>
-                <img
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: '0',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/perkStyle/${userInfo[0].stats.perkSubStyle}.png`}
-                ></img>
-              </Rune>
-            </Runes>
-          </MatchHistoryColParticipant>
-          <MatchHistoryColKda>
-            <Kda>
-              <span>{userInfo[0].stats.kills} /</span>
-              <span style={{ color: '#ed6767' }}>
-                {' '}
-                {userInfo[0].stats.deaths}
-              </span>
-              <span> / {userInfo[0].stats.assists}</span>
-            </Kda>
-            <KdaString>
-              {userInfo[0].stats.deaths
-                ? Math.round(
-                    ((userInfo[0].stats.kills + userInfo[0].stats.assists) /
-                      userInfo[0].stats.deaths) *
-                      100,
-                  ) / 100
-                : 'Perfect'}{' '}
-              평점
-            </KdaString>
-          </MatchHistoryColKda>
-          <MatchHistoryColStats>
-            <StatInfo>
-              <span> CS </span>
-              <span style={{ fontWeight: 'bold' }}>
-                {userInfo[0].stats.totalMinionsKilled}
-              </span>
-              <br />
-              <span>시야점수 </span>
-              <span style={{ fontWeight: 'bold' }}>
-                {userInfo[0].stats.visionScore}
-              </span>
-              <br />
-              <span>레벨 </span>
-              <span style={{ fontWeight: 'bold' }}>
-                {userInfo[0].stats.champLevel}
-              </span>
-            </StatInfo>
-            <StatWards></StatWards>
-          </MatchHistoryColStats>
-        </MatchHistoryRowStats>
-        <MatchHistoryRowItmes>
-          <MatchHistoryColItmes>
-            <Items>
-              <Item>
-                {userInfo[0].stats.item0 ? (
+      {userInfo[0] && (
+        <>
+          <MatchHistoryResult
+            winlose={userInfo[0].stats.win}
+          ></MatchHistoryResult>
+          <MatchHistoryContent>
+            <MatchHistoryRowStatus>
+              <MatchHistoryColStatus>
+                <ResultMatchText winlose={userInfo[0].stats.win}>
+                  {win}
+                </ResultMatchText>
+                <ResultMatchType>{queue}</ResultMatchType>
+                <ResultMatchDuration>{`${moment(0)
+                  .seconds(gamedata.gameDuration)
+                  .format('mm:ss')}`}</ResultMatchDuration>
+                <ResultMatchDate>{`${moment(
+                  gamedata.gameCreation,
+                ).fromNow()}`}</ResultMatchDate>
+              </MatchHistoryColStatus>
+            </MatchHistoryRowStatus>
+            <MatchHistoryRowStats>
+              <MatchHistoryColParticipant>
+                <Champion>
                   <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item0}.png`}
-                    style={{ width: '100%', height: '100%' }}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      border: '0',
+                      verticalAlign: 'middle',
+                    }}
+                    src={`http:////opgg-static.akamaized.net/images/lol/champion/${championData[0].id}.png`}
                   ></img>
-                ) : null}
-              </Item>
-              <Item>
-                {userInfo[0].stats.item1 ? (
-                  <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item1}.png`}
-                    style={{ width: '100%', height: '100%' }}
-                  ></img>
-                ) : null}
-              </Item>
-              <Item>
-                {userInfo[0].stats.item2 ? (
-                  <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item2}.png`}
-                    style={{ width: '100%', height: '100%' }}
-                  ></img>
-                ) : null}
-              </Item>
-              <Item>
-                {userInfo[0].stats.item6 ? (
-                  <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item6}.png`}
-                    style={{ width: '100%', height: '100%' }}
-                  ></img>
-                ) : null}
-              </Item>
-            </Items>
-            <Items>
-              <Item>
-                {userInfo[0].stats.item3 ? (
-                  <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item3}.png`}
-                    style={{ width: '100%', height: '100%' }}
-                  ></img>
-                ) : null}
-              </Item>
-              <Item>
-                {userInfo[0].stats.item4 ? (
-                  <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item4}.png`}
-                    style={{ width: '100%', height: '100%' }}
-                  ></img>
-                ) : null}
-              </Item>
-              <Item>
-                {userInfo[0].stats.item5 ? (
-                  <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item5}.png`}
-                    style={{ width: '100%', height: '100%' }}
-                  ></img>
-                ) : null}
-              </Item>
-            </Items>
-          </MatchHistoryColItmes>
-          <MatchHistoryColSummoners>
-            <Summoners>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[0].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team1[0].player.summonerName}</SummonerName>
-              </Summoner>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[2].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team1[2].player.summonerName}</SummonerName>
-              </Summoner>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[1].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team1[1].player.summonerName}</SummonerName>
-              </Summoner>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[3].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team1[3].player.summonerName}</SummonerName>
-              </Summoner>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[4].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team1[4].player.summonerName}</SummonerName>
-              </Summoner>
-            </Summoners>
-            <Summoners>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[0].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team2[0].player.summonerName}</SummonerName>
-              </Summoner>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[2].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team2[2].player.summonerName}</SummonerName>
-              </Summoner>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[1].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team2[1].player.summonerName}</SummonerName>
-              </Summoner>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[3].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team2[3].player.summonerName}</SummonerName>
-              </Summoner>
-              <Summoner>
-                <img
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    verticalAlign: 'middle',
-                  }}
-                  src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[4].championData[0].id}.png`}
-                ></img>
-                <SummonerName>{team2[4].player.summonerName}</SummonerName>
-              </Summoner>
-            </Summoners>
-          </MatchHistoryColSummoners>
-        </MatchHistoryRowItmes>
-      </MatchHistoryContent>
+                  <ChampionLevel></ChampionLevel>
+                </Champion>
+                <Spells>
+                  <Spell>
+                    <img
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        border: '0',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`/images/SummonerSpell/${userInfo[0].spell1Id}.png`}
+                    ></img>
+                  </Spell>
+                  <Spell>
+                    <img
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        border: '0',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`/images/SummonerSpell/${userInfo[0].spell2Id}.png`}
+                    ></img>
+                  </Spell>
+                </Spells>
+                <Runes>
+                  <Rune>
+                    <img
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        border: '0',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/perk/${userInfo[0].stats.perk0}.png`}
+                    ></img>
+                  </Rune>
+                  <Rune>
+                    <img
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        border: '0',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/perkStyle/${userInfo[0].stats.perkSubStyle}.png`}
+                    ></img>
+                  </Rune>
+                </Runes>
+              </MatchHistoryColParticipant>
+              <MatchHistoryColKda>
+                <Kda>
+                  <span>{userInfo[0].stats.kills} /</span>
+                  <span style={{ color: '#ed6767' }}>
+                    {' '}
+                    {userInfo[0].stats.deaths}
+                  </span>
+                  <span> / {userInfo[0].stats.assists}</span>
+                </Kda>
+                <KdaString>
+                  {userInfo[0].stats.deaths
+                    ? Math.round(
+                        ((userInfo[0].stats.kills + userInfo[0].stats.assists) /
+                          userInfo[0].stats.deaths) *
+                          100,
+                      ) / 100
+                    : 'Perfect'}{' '}
+                  평점
+                </KdaString>
+              </MatchHistoryColKda>
+              <MatchHistoryColStats>
+                <StatInfo>
+                  <span> CS </span>
+                  <span style={{ fontWeight: 'bold' }}>
+                    {userInfo[0].stats.totalMinionsKilled}
+                  </span>
+                  <br />
+                  <span>시야점수 </span>
+                  <span style={{ fontWeight: 'bold' }}>
+                    {userInfo[0].stats.visionScore}
+                  </span>
+                  <br />
+                  <span>레벨 </span>
+                  <span style={{ fontWeight: 'bold' }}>
+                    {userInfo[0].stats.champLevel}
+                  </span>
+                </StatInfo>
+                <StatWards></StatWards>
+              </MatchHistoryColStats>
+            </MatchHistoryRowStats>
+            <MatchHistoryRowItmes>
+              <MatchHistoryColItmes>
+                <Items>
+                  <Item>
+                    {userInfo[0].stats.item0 ? (
+                      <img
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item0}.png`}
+                        style={{ width: '100%', height: '100%' }}
+                      ></img>
+                    ) : null}
+                  </Item>
+                  <Item>
+                    {userInfo[0].stats.item1 ? (
+                      <img
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item1}.png`}
+                        style={{ width: '100%', height: '100%' }}
+                      ></img>
+                    ) : null}
+                  </Item>
+                  <Item>
+                    {userInfo[0].stats.item2 ? (
+                      <img
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item2}.png`}
+                        style={{ width: '100%', height: '100%' }}
+                      ></img>
+                    ) : null}
+                  </Item>
+                  <Item>
+                    {userInfo[0].stats.item6 ? (
+                      <img
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item6}.png`}
+                        style={{ width: '100%', height: '100%' }}
+                      ></img>
+                    ) : null}
+                  </Item>
+                </Items>
+                <Items>
+                  <Item>
+                    {userInfo[0].stats.item3 ? (
+                      <img
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item3}.png`}
+                        style={{ width: '100%', height: '100%' }}
+                      ></img>
+                    ) : null}
+                  </Item>
+                  <Item>
+                    {userInfo[0].stats.item4 ? (
+                      <img
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item4}.png`}
+                        style={{ width: '100%', height: '100%' }}
+                      ></img>
+                    ) : null}
+                  </Item>
+                  <Item>
+                    {userInfo[0].stats.item5 ? (
+                      <img
+                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item5}.png`}
+                        style={{ width: '100%', height: '100%' }}
+                      ></img>
+                    ) : null}
+                  </Item>
+                </Items>
+              </MatchHistoryColItmes>
+              <MatchHistoryColSummoners>
+                <Summoners>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[0].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team1[0].player.summonerName}</SummonerName>
+                  </Summoner>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[2].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team1[2].player.summonerName}</SummonerName>
+                  </Summoner>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[1].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team1[1].player.summonerName}</SummonerName>
+                  </Summoner>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[3].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team1[3].player.summonerName}</SummonerName>
+                  </Summoner>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[4].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team1[4].player.summonerName}</SummonerName>
+                  </Summoner>
+                </Summoners>
+                <Summoners>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[0].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team2[0].player.summonerName}</SummonerName>
+                  </Summoner>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[2].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team2[2].player.summonerName}</SummonerName>
+                  </Summoner>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[1].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team2[1].player.summonerName}</SummonerName>
+                  </Summoner>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[3].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team2[3].player.summonerName}</SummonerName>
+                  </Summoner>
+                  <Summoner>
+                    <img
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        verticalAlign: 'middle',
+                      }}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[4].championData[0].id}.png`}
+                    ></img>
+                    <SummonerName>{team2[4].player.summonerName}</SummonerName>
+                  </Summoner>
+                </Summoners>
+              </MatchHistoryColSummoners>
+            </MatchHistoryRowItmes>
+          </MatchHistoryContent>
+        </>
+      )}
     </>
   );
 }
@@ -587,7 +589,7 @@ const Item = styled.div`
   height: 28px;
   display: inline-block;
   vertical-align: middle;
-  background-color: #e6e6e6;
+  background-color: rgba(255, 255, 255, 0.3);
   margin-left: 4px;
   &:first-child {
     margin-left: 0px;

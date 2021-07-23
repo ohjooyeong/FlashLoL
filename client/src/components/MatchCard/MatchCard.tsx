@@ -1,37 +1,25 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { MatchlistDto } from '../../api/game';
-import { getGameDetailInfoAsync } from '../../modules/game';
 import { RootState } from '../../modules';
 import styled from 'styled-components';
 import MatchCardContent from './MatchCardContent';
 
-type MatchCardProps = {
-  matchlist: MatchlistDto;
-};
-
-function MatchCard({ matchlist }: MatchCardProps) {
-  const dispatch = useDispatch();
+function MatchCard() {
   const { data, loading, error } = useSelector(
-    (state: RootState) => state.game.summonerDetailGameInfo,
+    (state: RootState) => state.game.summonerGameInfo,
   );
   const { champions } = useSelector((state: RootState) => state.champion);
-  useEffect(() => {
-    if (matchlist.matches) {
-      matchlist.matches.map(game => {
-        const { gameId } = game;
-        dispatch(getGameDetailInfoAsync.request(gameId));
-      });
-    }
-  }, []);
 
   return (
     <>
-      {data &&
-        data.map(m => (
-          <MatchHistory key={m.matchdata.gameId}>
+      {!loading &&
+        data &&
+        data.apiStatus.success &&
+        data.gameInfo.matchDetailList.map(m => (
+          <MatchHistory key={m.gameId}>
             <MatchCardContent
-              gamedata={m.matchdata}
+              gamedata={m}
               champions={champions}
             ></MatchCardContent>
           </MatchHistory>

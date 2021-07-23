@@ -20,11 +20,7 @@ function MatchCardList({ accountId }: MatchCardListProps) {
     dispatch(getGameInfoAsync.request(accountId));
   }, []);
   return (
-    <>
-      {data && (
-        <MatchCard matchlist={data.summonerGameInfo.matchlist}></MatchCard>
-      )}
-    </>
+    <>{!loading && data && data.apiStatus.success && <MatchCard></MatchCard>}</>
   );
 }
 

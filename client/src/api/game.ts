@@ -9,13 +9,6 @@ export async function getGameListAPI(accountId: string) {
   return response.data;
 }
 
-export async function getGameDetailAPI(gameId: number) {
-  const response = await axios.get<MatchDto>(
-    `http://localhost:5000/summoner/game/${gameId}`,
-  );
-  return response.data;
-}
-
 export interface MatchReferenceDto {
   gameId: number;
   role: string;
@@ -28,21 +21,19 @@ export interface MatchReferenceDto {
 }
 
 export interface MatchDto {
-  matchdata: {
-    gameId: number;
-    participantIdentities: Array<any>;
-    queueId: number;
-    gameType: string;
-    gameDuration: number;
-    teams: Array<any>;
-    platformId: string;
-    gameCreation: number;
-    seasonId: number;
-    gameVersion: string;
-    mapId: number;
-    gameMode: string;
-    participants: Array<any>;
-  };
+  gameId: number;
+  participantIdentities: Array<any>;
+  queueId: number;
+  gameType: string;
+  gameDuration: number;
+  teams: Array<any>;
+  platformId: string;
+  gameCreation: number;
+  seasonId: number;
+  gameVersion: string;
+  mapId: number;
+  gameMode: string;
+  participants: Array<any>;
 }
 
 export interface MatchlistDto {
@@ -54,10 +45,8 @@ export interface MatchlistDto {
 
 export interface GameDTO {
   apiStatus: APIStatusDTO;
-  summonerGameInfo: {
+  gameInfo: {
     matchlist: MatchlistDto;
-  };
-  summonerDetailGameInfo: {
-    matchlist: Array<MatchDto>;
+    matchDetailList: Array<MatchDto>;
   };
 }
