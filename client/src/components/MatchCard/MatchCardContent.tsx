@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { RootState } from '../../modules';
 import moment from 'moment';
 import 'moment/locale/ko';
+import { Link } from 'react-router-dom';
+import { RIOT_CDN } from '../../config/cdn_value';
 
 function MatchCardContent({ gamedata, champions }: any) {
   const { data: summonerData } = useSelector(
@@ -86,7 +88,14 @@ function MatchCardContent({ gamedata, champions }: any) {
   }
 
   const win = userInfo[0]?.stats.win ? '승리' : '패배';
-  const queue = gamedata?.queueId === 440 ? '자유 랭크' : '솔로 랭크';
+  const queue =
+    gamedata?.queueId === 440
+      ? '자유 랭크'
+      : gamedata?.queueId === 420
+      ? '솔로랭크'
+      : gamedata?.queueId === 430
+      ? '일반'
+      : '칼바람 나락';
 
   return (
     <>
@@ -219,7 +228,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                   <Item>
                     {userInfo[0].stats.item0 ? (
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item0}.png`}
+                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item0}.png`}
                         style={{ width: '100%', height: '100%' }}
                       ></img>
                     ) : null}
@@ -227,7 +236,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                   <Item>
                     {userInfo[0].stats.item1 ? (
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item1}.png`}
+                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item1}.png`}
                         style={{ width: '100%', height: '100%' }}
                       ></img>
                     ) : null}
@@ -235,7 +244,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                   <Item>
                     {userInfo[0].stats.item2 ? (
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item2}.png`}
+                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item2}.png`}
                         style={{ width: '100%', height: '100%' }}
                       ></img>
                     ) : null}
@@ -243,7 +252,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                   <Item>
                     {userInfo[0].stats.item6 ? (
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item6}.png`}
+                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item6}.png`}
                         style={{ width: '100%', height: '100%' }}
                       ></img>
                     ) : null}
@@ -253,7 +262,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                   <Item>
                     {userInfo[0].stats.item3 ? (
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item3}.png`}
+                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item3}.png`}
                         style={{ width: '100%', height: '100%' }}
                       ></img>
                     ) : null}
@@ -261,7 +270,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                   <Item>
                     {userInfo[0].stats.item4 ? (
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item4}.png`}
+                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item4}.png`}
                         style={{ width: '100%', height: '100%' }}
                       ></img>
                     ) : null}
@@ -269,7 +278,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                   <Item>
                     {userInfo[0].stats.item5 ? (
                       <img
-                        src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/item/${userInfo[0].stats.item5}.png`}
+                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item5}.png`}
                         style={{ width: '100%', height: '100%' }}
                       ></img>
                     ) : null}
@@ -279,116 +288,157 @@ function MatchCardContent({ gamedata, champions }: any) {
               <MatchHistoryColSummoners>
                 <Summoners>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[0].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team1[0].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team1[0].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[0].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team1[0].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[2].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team1[2].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team1[2].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[2].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team1[2].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[1].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team1[1].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team1[1].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[1].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team1[1].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[3].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team1[3].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team1[3].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[3].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team1[3].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[4].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team1[4].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team1[4].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[4].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team1[4].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                 </Summoners>
                 <Summoners>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[0].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team2[0].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team2[0].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[0].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team2[0].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[2].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team2[2].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team2[2].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[2].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team2[2].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[1].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team2[1].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team2[1].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[1].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team2[1].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[3].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team2[3].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team2[3].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[3].championData[0]?.id}.png`}
+                      ></img>
+                      <SummonerName>
+                        {team2[3].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                   <Summoner>
-                    <img
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[4].championData[0]?.id}.png`}
-                    ></img>
-                    <SummonerName>{team2[4].player.summonerName}</SummonerName>
+                    <MLink to={`/summoner/${team2[4].player.summonerName}`}>
+                      <img
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          verticalAlign: 'middle',
+                        }}
+                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[4].championData[0]?.id}.png`}
+                      ></img>
+
+                      <SummonerName>
+                        {team2[4].player.summonerName}
+                      </SummonerName>
+                    </MLink>
                   </Summoner>
                 </Summoners>
               </MatchHistoryColSummoners>
@@ -630,6 +680,12 @@ const SummonerName = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const MLink = styled(Link)`
+  &:hover {
+    font-weight: 600;
+  }
 `;
 
 export default MatchCardContent;

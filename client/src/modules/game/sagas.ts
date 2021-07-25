@@ -1,11 +1,4 @@
-import {
-  all,
-  call,
-  fork,
-  put,
-  takeEvery,
-  takeLatest,
-} from 'redux-saga/effects';
+import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 import { GameDTO, getGameListAPI } from '../../api/game';
 import { getGameInfoAsync, GET_GAME_INFO_REQUEST } from './actions';
 

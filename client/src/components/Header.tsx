@@ -27,17 +27,7 @@ function Header({ history }: RouteComponentProps) {
         </HeaderMainmenu>
         <HeaderSubmenu>
           <SubmenuContainer>
-            <SubmenuList>
-              <SubmenuLi>
-                <SubmenuTxt to="#">소환사 랭킹</SubmenuTxt>
-              </SubmenuLi>
-              <SubmenuLi>
-                <SubmenuTxt to="#">장인 랭킹</SubmenuTxt>
-              </SubmenuLi>
-              <SubmenuLi>
-                <SubmenuTxt to="#">즐겨찾기</SubmenuTxt>
-              </SubmenuLi>
-            </SubmenuList>
+            <SubmenuList></SubmenuList>
           </SubmenuContainer>
         </HeaderSubmenu>
       </HeaderWrapper>

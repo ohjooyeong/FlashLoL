@@ -31,6 +31,7 @@ const MatchHistory = styled.div`
   position: relative;
   border: 1px solid #e6e6e6;
   flex-direction: row;
+  margin-bottom: 10px;
 `;
 
 export default MatchCard;

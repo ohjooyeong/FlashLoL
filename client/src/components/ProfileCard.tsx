@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 import { SummonerInfo, SummonerProfile } from '../api/summoner';
+import { RIOT_CDN } from '../config/cdn_value';
 import { setArray } from '../util/localStorage';
 
 type ProfileCardProps = {
@@ -157,7 +158,7 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
             <ImgCenter>
               <a>
                 <img
-                  src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/profileicon/${profileInfo.profileIconId}.png`}
+                  src={`${RIOT_CDN}/img/profileicon/${profileInfo.profileIconId}.png`}
                   style={{
                     width: '90px',
                     aspectRatio: 'auto 90 / 90',

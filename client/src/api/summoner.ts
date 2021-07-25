@@ -1,10 +1,10 @@
 import axios from 'axios';
+import { SERVER_URL } from '../config/every_url';
 
 export async function getSummonerAPI(summonerName: string) {
-  const response = await axios.post<SummonerDTO>(
-    `http://localhost:5000/summoner`,
-    { summonerName },
-  );
+  const response = await axios.post<SummonerDTO>(`${SERVER_URL}/summoner`, {
+    summonerName,
+  });
   return response.data;
 }
 

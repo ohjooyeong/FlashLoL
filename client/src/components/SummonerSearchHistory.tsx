@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { getArray } from '../util/localStorage';
+import { RIOT_CDN } from '../config/cdn_value';
 
 function SummonerSearchHistory() {
   const [summoners, setsummoners] = useState([]);
@@ -27,7 +28,7 @@ function SummonerSearchHistory() {
       <SummonerHistory key={s[0] + s[1] + i}>
         <SLink to={`/summoner/${s[0]}`}>
           <img
-            src={`https://ddragon.leagueoflegends.com/cdn/11.15.1/img/profileicon/${s[1]}.png`}
+            src={`${RIOT_CDN}/img/profileicon/${s[1]}.png`}
             style={{
               width: '40px',
               height: '40px',

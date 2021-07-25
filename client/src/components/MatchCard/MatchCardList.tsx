@@ -12,7 +12,7 @@ type MatchCardListProps = {
 
 function MatchCardList({ accountId }: MatchCardListProps) {
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector(
+  const { data, loading } = useSelector(
     (state: RootState) => state.game.summonerGameInfo,
   );
 
