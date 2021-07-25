@@ -1,5 +1,5 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { ChampionDTO, getChampionAPI } from '../../api/champion';
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { getChampionAPI } from '../../api/champion';
 import {
   getChampionsFailure,
   getChampionsRequest,

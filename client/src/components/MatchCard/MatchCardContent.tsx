@@ -6,11 +6,9 @@ import moment from 'moment';
 import 'moment/locale/ko';
 
 function MatchCardContent({ gamedata, champions }: any) {
-  const {
-    data: summonerData,
-    loading,
-    error,
-  } = useSelector((state: RootState) => state.summoners.summonerProfile);
+  const { data: summonerData } = useSelector(
+    (state: RootState) => state.summoners.summonerProfile,
+  );
 
   const myName = summonerData?.summonerProfile.info.name;
   const participantSummoner = gamedata.participantIdentities;
@@ -42,11 +40,13 @@ function MatchCardContent({ gamedata, champions }: any) {
     }
   }
 
-  const participant = gamedata.participantIdentities.filter((user: any) => {
-    if (myName === user.player.summonerName) {
-      return user;
-    }
-  });
+  const participant =
+    gamedata &&
+    gamedata.participantIdentities.filter((user: any) => {
+      if (myName === user.player.summonerName) {
+        return user;
+      }
+    });
 
   team1.sort(function (a, b): number {
     const o1 = a.timeline.lane;
@@ -285,7 +285,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[0].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[0].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team1[0].player.summonerName}</SummonerName>
                   </Summoner>
@@ -296,7 +296,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[2].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[2].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team1[2].player.summonerName}</SummonerName>
                   </Summoner>
@@ -307,7 +307,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[1].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[1].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team1[1].player.summonerName}</SummonerName>
                   </Summoner>
@@ -318,7 +318,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[3].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[3].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team1[3].player.summonerName}</SummonerName>
                   </Summoner>
@@ -329,7 +329,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[4].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[4].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team1[4].player.summonerName}</SummonerName>
                   </Summoner>
@@ -342,7 +342,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[0].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[0].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team2[0].player.summonerName}</SummonerName>
                   </Summoner>
@@ -353,7 +353,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[2].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[2].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team2[2].player.summonerName}</SummonerName>
                   </Summoner>
@@ -364,7 +364,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[1].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[1].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team2[1].player.summonerName}</SummonerName>
                   </Summoner>
@@ -375,7 +375,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[3].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[3].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team2[3].player.summonerName}</SummonerName>
                   </Summoner>
@@ -386,7 +386,7 @@ function MatchCardContent({ gamedata, champions }: any) {
                         height: '14px',
                         verticalAlign: 'middle',
                       }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[4].championData[0].id}.png`}
+                      src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[4].championData[0]?.id}.png`}
                     ></img>
                     <SummonerName>{team2[4].player.summonerName}</SummonerName>
                   </Summoner>

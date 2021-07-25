@@ -1,6 +1,3 @@
-import { createAsyncAction } from 'typesafe-actions';
-import { AxiosError } from 'axios';
-
 // 챔피언
 
 export const GET_CHAMPIONS = 'champion/GET_CHAMPIONS';

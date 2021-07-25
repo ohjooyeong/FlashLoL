@@ -1,12 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { MatchlistDto } from '../../api/game';
 import { RootState } from '../../modules';
 import styled from 'styled-components';
 import MatchCardContent from './MatchCardContent';
 
 function MatchCard() {
-  const { data, loading, error } = useSelector(
+  const { data, loading } = useSelector(
     (state: RootState) => state.game.summonerGameInfo,
   );
   const { champions } = useSelector((state: RootState) => state.champion);

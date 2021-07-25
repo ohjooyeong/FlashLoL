@@ -20,6 +20,7 @@ function MatchCardList({ accountId }: MatchCardListProps) {
     dispatch(getChampions());
     dispatch(getGameInfoAsync.request(accountId));
   }, []);
+
   return (
     <>
       {loading ? (

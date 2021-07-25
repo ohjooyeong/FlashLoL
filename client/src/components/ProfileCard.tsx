@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 import { SummonerInfo, SummonerProfile } from '../api/summoner';
+import { setArray } from '../util/localStorage';
 
 type ProfileCardProps = {
   profileData: Array<SummonerProfile>;
@@ -142,6 +143,10 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
       rankCard.push(emptyRank);
       return rankCard.reverse();
     }
+  }
+
+  if (profileInfo.name) {
+    setArray('summoners', profileInfo.name, profileInfo.profileIconId);
   }
 
   return (
