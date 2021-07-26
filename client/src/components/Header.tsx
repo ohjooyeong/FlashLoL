@@ -86,24 +86,24 @@ const SubmenuList = styled.ul`
   margin: 0;
 `;
 
-const SubmenuLi = styled.li`
-  display: flex;
-  align-items: center;
-  margin-left: 23px;
-  margin-right: 23px;
-  font-size: 14px;
-  height: 85%;
-`;
+// const SubmenuLi = styled.li`
+//   display: flex;
+//   align-items: center;
+//   margin-left: 23px;
+//   margin-right: 23px;
+//   font-size: 14px;
+//   height: 85%;
+// `;
 
-const SubmenuTxt = styled(Link)`
-  height: 41px;
-  padding-top: 16px;
-  color: #d6d6d6;
-  &:hover {
-    cursor: pointer;
-    border-bottom: 3px solid;
-  }
-`;
+// const SubmenuTxt = styled(Link)`
+//   height: 41px;
+//   padding-top: 16px;
+//   color: #d6d6d6;
+//   &:hover {
+//     cursor: pointer;
+//     border-bottom: 3px solid;
+//   }
+// `;
 
 const LogoContainer = styled.div`
   flex: 1 0 140px;

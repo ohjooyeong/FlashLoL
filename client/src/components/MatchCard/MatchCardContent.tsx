@@ -193,11 +193,14 @@ function MatchCardContent({ gamedata, champions }: any) {
                 </Kda>
                 <KdaString>
                   {userInfo[0].stats.deaths
-                    ? Math.round(
-                        ((userInfo[0].stats.kills + userInfo[0].stats.assists) /
-                          userInfo[0].stats.deaths) *
-                          100,
-                      ) / 100
+                    ? (
+                        Math.round(
+                          ((userInfo[0].stats.kills +
+                            userInfo[0].stats.assists) /
+                            userInfo[0].stats.deaths) *
+                            100,
+                        ) / 100
+                      ).toFixed(2)
                     : 'Perfect'}{' '}
                   평점
                 </KdaString>
@@ -655,16 +658,17 @@ const MatchHistoryColSummoners = styled.div`
 const Summoners = styled.div`
   display: inline-block;
   width: 50%;
+  font-weight: 400;
+  color: #b71540;
   &:last-child {
-    margin-top: 0;
+    color: #341f97;
   }
 `;
 
 const Summoner = styled.div`
   display: block;
-  color: grey;
   line-height: 1;
-  margin-top: 2px;
+  margin-top: 3px;
   &:first-child {
     margin-top: 0px;
   }
@@ -675,17 +679,17 @@ const SummonerName = styled.span`
   max-width: 110px;
   margin-left: 4px;
   font-size: 12px;
-  color: black;
   vertical-align: middle;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  &:hover {
+    font-weight: 1000;
+  }
 `;
 
 const MLink = styled(Link)`
-  &:hover {
-    font-weight: 600;
-  }
+  color: inherit;
 `;
 
 export default MatchCardContent;
