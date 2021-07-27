@@ -16,22 +16,20 @@ function MatchCard() {
         data &&
         data.apiStatus.success &&
         data.gameInfo.matchDetailList.map(m => (
-          <MatchHistory key={m.gameId}>
+          <MatchContainer key={m.gameId}>
             <MatchCardContent
               gamedata={m}
               champions={champions}
             ></MatchCardContent>
-          </MatchHistory>
+          </MatchContainer>
         ))}
     </>
   );
 }
 
-const MatchHistory = styled.div`
-  position: relative;
-  border: 1px solid #e6e6e6;
-  flex-direction: row;
-  margin-bottom: 10px;
+const MatchContainer = styled.div`
+  margin-top: 0.5rem;
+  font-weight: 600;
 `;
 
 export default MatchCard;

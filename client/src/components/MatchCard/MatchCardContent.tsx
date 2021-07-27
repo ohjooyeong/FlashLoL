@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
@@ -6,15 +6,25 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { Link } from 'react-router-dom';
 import { RIOT_CDN } from '../../config/cdn_value';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import MatchCardDetail from './MatchCardDetail';
 
 function MatchCardContent({ gamedata, champions }: any) {
   const { data: summonerData } = useSelector(
     (state: RootState) => state.summoners.summonerProfile,
   );
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(isOpen => !isOpen); // on, off 개념 boolean
+  };
+
   const myName = summonerData?.summonerProfile.info.name;
   const participantSummoner = gamedata.participantIdentities;
   const participantSummonerStat = gamedata.participants;
+  const teams = [...gamedata.teams];
 
   const team1 = [];
   const team2 = [];
@@ -62,6 +72,9 @@ function MatchCardContent({ gamedata, champions }: any) {
     return 0;
   });
 
+  const summoner1 = team1.splice(1, 1);
+  team1.splice(2, 0, summoner1[0]);
+
   team2.sort(function (a, b): number {
     const o1 = a.timeline.lane;
     const o2 = b.timeline.lane;
@@ -73,6 +86,9 @@ function MatchCardContent({ gamedata, champions }: any) {
     if (r1 > r2) return 1;
     return 0;
   });
+
+  const summoner2 = team2.splice(1, 1);
+  team2.splice(2, 0, summoner2[0]);
 
   const userInfo = gamedata.participants.filter((user: any) => {
     if (participant[0]?.participantId === user.participantId) {
@@ -101,40 +117,28 @@ function MatchCardContent({ gamedata, champions }: any) {
     <>
       {userInfo[0] && (
         <>
-          <MatchHistoryResult
-            winlose={userInfo[0].stats.win}
-          ></MatchHistoryResult>
-          <MatchHistoryContent>
-            <MatchHistoryRowStatus>
-              <MatchHistoryColStatus>
-                <ResultMatchText winlose={userInfo[0].stats.win}>
-                  {win}
-                </ResultMatchText>
-                <ResultMatchType>{queue}</ResultMatchType>
-                <ResultMatchDuration>{`${moment(0)
-                  .seconds(gamedata.gameDuration)
-                  .format('mm:ss')}`}</ResultMatchDuration>
-                <ResultMatchDate>{`${moment(
-                  gamedata.gameCreation,
-                ).fromNow()}`}</ResultMatchDate>
-              </MatchHistoryColStatus>
-            </MatchHistoryRowStatus>
-            <MatchHistoryRowStats>
-              <MatchHistoryColParticipant>
-                <Champion>
-                  <img
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      border: '0',
-                      verticalAlign: 'middle',
-                    }}
-                    src={`http:////opgg-static.akamaized.net/images/lol/champion/${championData[0].id}.png`}
-                  ></img>
-                  <ChampionLevel></ChampionLevel>
-                </Champion>
-                <Spells>
-                  <Spell>
+          <MatchHistory>
+            <MatchHistoryResult
+              winlose={userInfo[0].stats.win}
+            ></MatchHistoryResult>
+            <MatchHistoryContent>
+              <MatchHistoryRowStatus>
+                <MatchHistoryColStatus>
+                  <ResultMatchText winlose={userInfo[0].stats.win}>
+                    {win}
+                  </ResultMatchText>
+                  <ResultMatchType>{queue}</ResultMatchType>
+                  <ResultMatchDuration>{`${moment(0)
+                    .seconds(gamedata.gameDuration)
+                    .format('mm:ss')}`}</ResultMatchDuration>
+                  <ResultMatchDate>{`${moment(
+                    gamedata.gameCreation,
+                  ).fromNow()}`}</ResultMatchDate>
+                </MatchHistoryColStatus>
+              </MatchHistoryRowStatus>
+              <MatchHistoryRowStats>
+                <MatchHistoryColParticipant>
+                  <Champion>
                     <img
                       style={{
                         width: '100%',
@@ -142,316 +146,247 @@ function MatchCardContent({ gamedata, champions }: any) {
                         border: '0',
                         verticalAlign: 'middle',
                       }}
-                      src={`/images/SummonerSpell/${userInfo[0].spell1Id}.png`}
+                      src={`${RIOT_CDN}/img/champion/${championData[0].id}.png`}
                     ></img>
-                  </Spell>
-                  <Spell>
-                    <img
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        border: '0',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`/images/SummonerSpell/${userInfo[0].spell2Id}.png`}
-                    ></img>
-                  </Spell>
-                </Spells>
-                <Runes>
-                  <Rune>
-                    <img
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        border: '0',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/perk/${userInfo[0].stats.perk0}.png`}
-                    ></img>
-                  </Rune>
-                  <Rune>
-                    <img
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        border: '0',
-                        verticalAlign: 'middle',
-                      }}
-                      src={`http:////opgg-static.akamaized.net/images/lol/perkStyle/${userInfo[0].stats.perkSubStyle}.png`}
-                    ></img>
-                  </Rune>
-                </Runes>
-              </MatchHistoryColParticipant>
-              <MatchHistoryColKda>
-                <Kda>
-                  <span>{userInfo[0].stats.kills} /</span>
-                  <span style={{ color: '#ed6767' }}>
-                    {' '}
-                    {userInfo[0].stats.deaths}
-                  </span>
-                  <span> / {userInfo[0].stats.assists}</span>
-                </Kda>
-                <KdaString>
-                  {userInfo[0].stats.deaths
-                    ? (
-                        Math.round(
-                          ((userInfo[0].stats.kills +
-                            userInfo[0].stats.assists) /
-                            userInfo[0].stats.deaths) *
-                            100,
-                        ) / 100
-                      ).toFixed(2)
-                    : 'Perfect'}{' '}
-                  평점
-                </KdaString>
-              </MatchHistoryColKda>
-              <MatchHistoryColStats>
-                <StatInfo>
-                  <span> CS </span>
-                  <span style={{ fontWeight: 'bold' }}>
-                    {userInfo[0].stats.totalMinionsKilled}
-                  </span>
-                  <br />
-                  <span>시야점수 </span>
-                  <span style={{ fontWeight: 'bold' }}>
-                    {userInfo[0].stats.visionScore}
-                  </span>
-                  <br />
-                  <span>레벨 </span>
-                  <span style={{ fontWeight: 'bold' }}>
-                    {userInfo[0].stats.champLevel}
-                  </span>
-                </StatInfo>
-                <StatWards></StatWards>
-              </MatchHistoryColStats>
-            </MatchHistoryRowStats>
-            <MatchHistoryRowItmes>
-              <MatchHistoryColItmes>
-                <Items>
-                  <Item>
-                    {userInfo[0].stats.item0 ? (
-                      <img
-                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item0}.png`}
-                        style={{ width: '100%', height: '100%' }}
-                      ></img>
-                    ) : null}
-                  </Item>
-                  <Item>
-                    {userInfo[0].stats.item1 ? (
-                      <img
-                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item1}.png`}
-                        style={{ width: '100%', height: '100%' }}
-                      ></img>
-                    ) : null}
-                  </Item>
-                  <Item>
-                    {userInfo[0].stats.item2 ? (
-                      <img
-                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item2}.png`}
-                        style={{ width: '100%', height: '100%' }}
-                      ></img>
-                    ) : null}
-                  </Item>
-                  <Item>
-                    {userInfo[0].stats.item6 ? (
-                      <img
-                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item6}.png`}
-                        style={{ width: '100%', height: '100%' }}
-                      ></img>
-                    ) : null}
-                  </Item>
-                </Items>
-                <Items>
-                  <Item>
-                    {userInfo[0].stats.item3 ? (
-                      <img
-                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item3}.png`}
-                        style={{ width: '100%', height: '100%' }}
-                      ></img>
-                    ) : null}
-                  </Item>
-                  <Item>
-                    {userInfo[0].stats.item4 ? (
-                      <img
-                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item4}.png`}
-                        style={{ width: '100%', height: '100%' }}
-                      ></img>
-                    ) : null}
-                  </Item>
-                  <Item>
-                    {userInfo[0].stats.item5 ? (
-                      <img
-                        src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item5}.png`}
-                        style={{ width: '100%', height: '100%' }}
-                      ></img>
-                    ) : null}
-                  </Item>
-                </Items>
-              </MatchHistoryColItmes>
-              <MatchHistoryColSummoners>
-                <Summoners>
-                  <Summoner>
-                    <MLink to={`/summoner/${team1[0].player.summonerName}`}>
+                    <ChampionLevel></ChampionLevel>
+                  </Champion>
+                  <Spells>
+                    <Spell>
                       <img
                         style={{
-                          width: '14px',
-                          height: '14px',
+                          width: '100%',
+                          height: '100%',
+                          border: '0',
                           verticalAlign: 'middle',
                         }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[0].championData[0]?.id}.png`}
+                        src={`/images/SummonerSpell/${userInfo[0].spell1Id}.png`}
                       ></img>
-                      <SummonerName>
-                        {team1[0].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                  <Summoner>
-                    <MLink to={`/summoner/${team1[2].player.summonerName}`}>
+                    </Spell>
+                    <Spell>
                       <img
                         style={{
-                          width: '14px',
-                          height: '14px',
+                          width: '100%',
+                          height: '100%',
+                          border: '0',
                           verticalAlign: 'middle',
                         }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[2].championData[0]?.id}.png`}
+                        src={`/images/SummonerSpell/${userInfo[0].spell2Id}.png`}
                       ></img>
-                      <SummonerName>
-                        {team1[2].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                  <Summoner>
-                    <MLink to={`/summoner/${team1[1].player.summonerName}`}>
+                    </Spell>
+                  </Spells>
+                  <Runes>
+                    <Rune>
                       <img
                         style={{
-                          width: '14px',
-                          height: '14px',
+                          width: '100%',
+                          height: '100%',
+                          border: '0',
                           verticalAlign: 'middle',
                         }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[1].championData[0]?.id}.png`}
+                        src={`http:////opgg-static.akamaized.net/images/lol/perk/${userInfo[0].stats.perk0}.png`}
                       ></img>
-                      <SummonerName>
-                        {team1[1].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                  <Summoner>
-                    <MLink to={`/summoner/${team1[3].player.summonerName}`}>
+                    </Rune>
+                    <Rune>
                       <img
                         style={{
-                          width: '14px',
-                          height: '14px',
+                          width: '100%',
+                          height: '100%',
+                          border: '0',
                           verticalAlign: 'middle',
                         }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[3].championData[0]?.id}.png`}
+                        src={`http:////opgg-static.akamaized.net/images/lol/perkStyle/${userInfo[0].stats.perkSubStyle}.png`}
                       ></img>
-                      <SummonerName>
-                        {team1[3].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                  <Summoner>
-                    <MLink to={`/summoner/${team1[4].player.summonerName}`}>
-                      <img
-                        style={{
-                          width: '14px',
-                          height: '14px',
-                          verticalAlign: 'middle',
-                        }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team1[4].championData[0]?.id}.png`}
-                      ></img>
-                      <SummonerName>
-                        {team1[4].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                </Summoners>
-                <Summoners>
-                  <Summoner>
-                    <MLink to={`/summoner/${team2[0].player.summonerName}`}>
-                      <img
-                        style={{
-                          width: '14px',
-                          height: '14px',
-                          verticalAlign: 'middle',
-                        }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[0].championData[0]?.id}.png`}
-                      ></img>
-                      <SummonerName>
-                        {team2[0].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                  <Summoner>
-                    <MLink to={`/summoner/${team2[2].player.summonerName}`}>
-                      <img
-                        style={{
-                          width: '14px',
-                          height: '14px',
-                          verticalAlign: 'middle',
-                        }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[2].championData[0]?.id}.png`}
-                      ></img>
-                      <SummonerName>
-                        {team2[2].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                  <Summoner>
-                    <MLink to={`/summoner/${team2[1].player.summonerName}`}>
-                      <img
-                        style={{
-                          width: '14px',
-                          height: '14px',
-                          verticalAlign: 'middle',
-                        }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[1].championData[0]?.id}.png`}
-                      ></img>
-                      <SummonerName>
-                        {team2[1].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                  <Summoner>
-                    <MLink to={`/summoner/${team2[3].player.summonerName}`}>
-                      <img
-                        style={{
-                          width: '14px',
-                          height: '14px',
-                          verticalAlign: 'middle',
-                        }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[3].championData[0]?.id}.png`}
-                      ></img>
-                      <SummonerName>
-                        {team2[3].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                  <Summoner>
-                    <MLink to={`/summoner/${team2[4].player.summonerName}`}>
-                      <img
-                        style={{
-                          width: '14px',
-                          height: '14px',
-                          verticalAlign: 'middle',
-                        }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/champion/${team2[4].championData[0]?.id}.png`}
-                      ></img>
-
-                      <SummonerName>
-                        {team2[4].player.summonerName}
-                      </SummonerName>
-                    </MLink>
-                  </Summoner>
-                </Summoners>
-              </MatchHistoryColSummoners>
-            </MatchHistoryRowItmes>
-          </MatchHistoryContent>
+                    </Rune>
+                  </Runes>
+                </MatchHistoryColParticipant>
+                <MatchHistoryColKda>
+                  <Kda>
+                    <span>{userInfo[0].stats.kills} /</span>
+                    <span style={{ color: '#ed6767' }}>
+                      {' '}
+                      {userInfo[0].stats.deaths}
+                    </span>
+                    <span> / {userInfo[0].stats.assists}</span>
+                  </Kda>
+                  <KdaString>
+                    {userInfo[0].stats.deaths
+                      ? (
+                          Math.round(
+                            ((userInfo[0].stats.kills +
+                              userInfo[0].stats.assists) /
+                              userInfo[0].stats.deaths) *
+                              100,
+                          ) / 100
+                        ).toFixed(2)
+                      : 'Perfect'}{' '}
+                    평점
+                  </KdaString>
+                </MatchHistoryColKda>
+                <MatchHistoryColStats>
+                  <StatInfo>
+                    <span> CS </span>
+                    <span style={{ fontWeight: 'bold' }}>
+                      {userInfo[0].stats.totalMinionsKilled}
+                    </span>
+                    <br />
+                    <span>시야점수 </span>
+                    <span style={{ fontWeight: 'bold' }}>
+                      {userInfo[0].stats.visionScore}
+                    </span>
+                    <br />
+                    <span>레벨 </span>
+                    <span style={{ fontWeight: 'bold' }}>
+                      {userInfo[0].stats.champLevel}
+                    </span>
+                  </StatInfo>
+                  <StatWards></StatWards>
+                </MatchHistoryColStats>
+              </MatchHistoryRowStats>
+              <MatchHistoryRowItmes>
+                <MatchHistoryColItmes>
+                  <Items>
+                    <Item>
+                      {userInfo[0].stats.item0 ? (
+                        <img
+                          src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item0}.png`}
+                          style={{ width: '100%', height: '100%' }}
+                        ></img>
+                      ) : null}
+                    </Item>
+                    <Item>
+                      {userInfo[0].stats.item1 ? (
+                        <img
+                          src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item1}.png`}
+                          style={{ width: '100%', height: '100%' }}
+                        ></img>
+                      ) : null}
+                    </Item>
+                    <Item>
+                      {userInfo[0].stats.item2 ? (
+                        <img
+                          src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item2}.png`}
+                          style={{ width: '100%', height: '100%' }}
+                        ></img>
+                      ) : null}
+                    </Item>
+                    <Item>
+                      {userInfo[0].stats.item6 ? (
+                        <img
+                          src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item6}.png`}
+                          style={{ width: '100%', height: '100%' }}
+                        ></img>
+                      ) : null}
+                    </Item>
+                  </Items>
+                  <Items>
+                    <Item>
+                      {userInfo[0].stats.item3 ? (
+                        <img
+                          src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item3}.png`}
+                          style={{ width: '100%', height: '100%' }}
+                        ></img>
+                      ) : null}
+                    </Item>
+                    <Item>
+                      {userInfo[0].stats.item4 ? (
+                        <img
+                          src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item4}.png`}
+                          style={{ width: '100%', height: '100%' }}
+                        ></img>
+                      ) : null}
+                    </Item>
+                    <Item>
+                      {userInfo[0].stats.item5 ? (
+                        <img
+                          src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item5}.png`}
+                          style={{ width: '100%', height: '100%' }}
+                        ></img>
+                      ) : null}
+                    </Item>
+                  </Items>
+                </MatchHistoryColItmes>
+                <MatchHistoryColSummoners>
+                  <Summoners>
+                    {team1 &&
+                      team1.map((t, i) => (
+                        <Summoner
+                          key={
+                            t.player.accountId +
+                            t.championId +
+                            t.participantId +
+                            i
+                          }
+                        >
+                          <MLink to={`/summoner/${t.player.summonerName}`}>
+                            <img
+                              style={{
+                                width: '14px',
+                                height: '14px',
+                                verticalAlign: 'middle',
+                              }}
+                              src={`${RIOT_CDN}/img/champion/${t.championData[0].id}.png`}
+                            ></img>
+                            <SummonerName>{t.player.summonerName}</SummonerName>
+                          </MLink>
+                        </Summoner>
+                      ))}
+                  </Summoners>
+                  <Summoners>
+                    {team2 &&
+                      team2.map((t, i) => (
+                        <Summoner
+                          key={
+                            t.player.accountId +
+                            t.championId +
+                            t.participantId +
+                            i
+                          }
+                        >
+                          <MLink to={`/summoner/${t.player.summonerName}`}>
+                            <img
+                              style={{
+                                width: '14px',
+                                height: '14px',
+                                verticalAlign: 'middle',
+                              }}
+                              src={`${RIOT_CDN}/img/champion/${t.championData[0].id}.png`}
+                            ></img>
+                            <SummonerName>{t.player.summonerName}</SummonerName>
+                          </MLink>
+                        </Summoner>
+                      ))}
+                  </Summoners>
+                </MatchHistoryColSummoners>
+              </MatchHistoryRowItmes>
+            </MatchHistoryContent>
+            <MatchHistoryExpandToggle
+              winlose={userInfo[0].stats.win}
+              onClick={toggleMenu}
+            >
+              <CusFontAwesome
+                icon={isOpen ? faChevronUp : faChevronDown}
+              ></CusFontAwesome>
+            </MatchHistoryExpandToggle>
+          </MatchHistory>
+          {isOpen ? (
+            <MatchCardDetail
+              team1={team1}
+              team2={team2}
+              aboutTeams={teams}
+            ></MatchCardDetail>
+          ) : null}
         </>
       )}
     </>
   );
 }
+
+const MatchHistory = styled.div`
+  position: relative;
+  border: 1px solid #e6e6e6;
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
 
 const MatchHistoryResult = styled.div<{ winlose: boolean }>`
   background-color: ${props => (props.winlose ? '#5393ca' : '#ed6767')};
@@ -659,9 +594,9 @@ const Summoners = styled.div`
   display: inline-block;
   width: 50%;
   font-weight: 400;
-  color: #b71540;
+  color: #341f97;
   &:last-child {
-    color: #341f97;
+    color: #b71540;
   }
 `;
 
@@ -690,6 +625,26 @@ const SummonerName = styled.span`
 
 const MLink = styled(Link)`
   color: inherit;
+`;
+
+const MatchHistoryExpandToggle = styled.div<{ winlose: boolean }>`
+  background-color: ${props => (props.winlose ? '#5393ca' : '#ed6767')};
+  display: flex;
+  width: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 16px;
+  font-size: 12px;
+`;
+
+const CusFontAwesome = styled(FontAwesomeIcon)`
+  font-weight: 900;
+  color: white;
 `;
 
 export default MatchCardContent;

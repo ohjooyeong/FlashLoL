@@ -89,6 +89,7 @@ const SummonerHistoryName = styled.div`
   padding-left: 0.25rem;
   padding-right: 0.25rem;
   margin-top: 0.8rem;
+  font-weight: 700;
 `;
 
 const SLink = styled(Link)``;
