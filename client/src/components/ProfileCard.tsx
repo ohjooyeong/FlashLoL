@@ -40,7 +40,7 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
         <RankInfo>
           <RankTitle>{p.queueType}</RankTitle>
           <RankTier>
-            {p.tier} {p.rank}
+            {p.tier === 'Unranked' ? p.tier : `${p.tier} ${p.rank}`}
           </RankTier>
           <RankScore>
             {p.winning_rate}% {p.leaguePoints}LP
@@ -54,96 +54,95 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
   });
 
   function renderRankCard() {
-    if (profileData.length == 2) {
-      return rankCard;
-    }
-    if (profileData.length == 0) {
-      const rankArray: Array<string> = ['솔로랭크', '자유랭크'];
-      const emptyRank = rankArray.map((p, i) => {
-        return (
-          <React.Fragment key={p + i + profileInfo.id}>
-            <RankImgContainer>
-              <img
-                style={{
-                  width: '60px',
-                  height: '60px',
-                  verticalAlign: 'middle',
-                  borderStyle: 'none',
-                }}
-                src="/images/ranked-emblems/Unranked.png"
-              ></img>
-            </RankImgContainer>
-            <RankInfo>
-              <RankTitle>{p}</RankTitle>
-              <RankTier>Unranked</RankTier>
-              <RankScore>0% 0LP</RankScore>
-              <span>
-                <RankWin>0승</RankWin> <RankLose>0패</RankLose>
-              </span>
-            </RankInfo>
-          </React.Fragment>
-        );
-      });
-      return emptyRank;
-    }
+    return rankCard;
 
-    if (profileData[0].queueType === '솔로랭크') {
-      const emptyRank = (
-        <React.Fragment
-          key={profileData[0].queueType + profileData[0].leagueId + 1}
-        >
-          <RankImgContainer>
-            <img
-              style={{
-                width: '60px',
-                height: '60px',
-                verticalAlign: 'middle',
-                borderStyle: 'none',
-              }}
-              src="/images/ranked-emblems/Unranked.png"
-            ></img>
-          </RankImgContainer>
-          <RankInfo>
-            <RankTitle>자유랭크</RankTitle>
-            <RankTier>Unranked</RankTier>
-            <RankScore>0% 0LP</RankScore>
-            <span>
-              <RankWin>0승</RankWin> <RankLose>0패</RankLose>
-            </span>
-          </RankInfo>
-        </React.Fragment>
-      );
-      rankCard.push(emptyRank);
-      return rankCard;
-    } else {
-      const emptyRank = (
-        <React.Fragment
-          key={profileData[0].queueType + profileData[0].leagueId + 1}
-        >
-          <RankImgContainer>
-            <img
-              style={{
-                width: '60px',
-                height: '60px',
-                verticalAlign: 'middle',
-                borderStyle: 'none',
-              }}
-              src="/images/ranked-emblems/Unranked.png"
-            ></img>
-          </RankImgContainer>
-          <RankInfo>
-            <RankTitle>솔로랭크</RankTitle>
-            <RankTier>Unranked</RankTier>
-            <RankScore>0% 0LP</RankScore>
-            <span>
-              <RankWin>0승</RankWin> <RankLose>0패</RankLose>
-            </span>
-          </RankInfo>
-        </React.Fragment>
-      );
-      rankCard.push(emptyRank);
-      return rankCard.reverse();
-    }
+    //   if (profileData.length == 0) {
+    //     const rankArray: Array<string> = ['솔로랭크', '자유랭크'];
+    //     const emptyRank = rankArray.map((p, i) => {
+    //       return (
+    //         <React.Fragment key={p + i + profileInfo.id}>
+    //           <RankImgContainer>
+    //             <img
+    //               style={{
+    //                 width: '60px',
+    //                 height: '60px',
+    //                 verticalAlign: 'middle',
+    //                 borderStyle: 'none',
+    //               }}
+    //               src="/images/ranked-emblems/Unranked.png"
+    //             ></img>
+    //           </RankImgContainer>
+    //           <RankInfo>
+    //             <RankTitle>{p}</RankTitle>
+    //             <RankTier>Unranked</RankTier>
+    //             <RankScore>0% 0LP</RankScore>
+    //             <span>
+    //               <RankWin>0승</RankWin> <RankLose>0패</RankLose>
+    //             </span>
+    //           </RankInfo>
+    //         </React.Fragment>
+    //       );
+    //     });
+    //     return emptyRank;
+    //   }
+
+    //   if (profileData[0].queueType === '솔로랭크') {
+    //     const emptyRank = (
+    //       <React.Fragment
+    //         key={profileData[0].queueType + profileData[0].leagueId + 1}
+    //       >
+    //         <RankImgContainer>
+    //           <img
+    //             style={{
+    //               width: '60px',
+    //               height: '60px',
+    //               verticalAlign: 'middle',
+    //               borderStyle: 'none',
+    //             }}
+    //             src="/images/ranked-emblems/Unranked.png"
+    //           ></img>
+    //         </RankImgContainer>
+    //         <RankInfo>
+    //           <RankTitle>자유랭크</RankTitle>
+    //           <RankTier>Unranked</RankTier>
+    //           <RankScore>0% 0LP</RankScore>
+    //           <span>
+    //             <RankWin>0승</RankWin> <RankLose>0패</RankLose>
+    //           </span>
+    //         </RankInfo>
+    //       </React.Fragment>
+    //     );
+    //     rankCard.push(emptyRank);
+    //     return rankCard;
+    //   } else {
+    //     const emptyRank = (
+    //       <React.Fragment
+    //         key={profileData[0].queueType + profileData[0].leagueId + 1}
+    //       >
+    //         <RankImgContainer>
+    //           <img
+    //             style={{
+    //               width: '60px',
+    //               height: '60px',
+    //               verticalAlign: 'middle',
+    //               borderStyle: 'none',
+    //             }}
+    //             src="/images/ranked-emblems/Unranked.png"
+    //           ></img>
+    //         </RankImgContainer>
+    //         <RankInfo>
+    //           <RankTitle>솔로랭크</RankTitle>
+    //           <RankTier>Unranked</RankTier>
+    //           <RankScore>0% 0LP</RankScore>
+    //           <span>
+    //             <RankWin>0승</RankWin> <RankLose>0패</RankLose>
+    //           </span>
+    //         </RankInfo>
+    //       </React.Fragment>
+    //     );
+    //     rankCard.push(emptyRank);
+    //     return rankCard.reverse();
+    //   }
   }
 
   if (profileInfo.name) {

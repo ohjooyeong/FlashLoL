@@ -54,9 +54,45 @@ const getMatchDetailAPI = async (matchId) => {
   }
 };
 
+const getChallengerRank = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.API_URL}/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5`
+    );
+    return response.data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+const getGrandmasterRank = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.API_URL}/league/v4/grandmasterleagues/by-queue/RANKED_SOLO_5x5`
+    );
+    return response.data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
+const getMasterRank = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.API_URL}/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5`
+    );
+    return response.data;
+  } catch (e) {
+    return e.response.data;
+  }
+};
+
 module.exports = {
   getSummonerIdAPI,
   getSummonerProfileInfo,
   getMatchListAPI,
   getMatchDetailAPI,
+  getChallengerRank,
+  getGrandmasterRank,
+  getMasterRank,
 };
