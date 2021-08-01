@@ -7,10 +7,22 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const summonerRouter = require("./routes/summoner");
+const mongoose = require("mongoose");
+const config = require("./config/key");
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+mongoose
+  .connect(config.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
+
+app.use(cors());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(morgan("dev"));
 app.use(express.json());

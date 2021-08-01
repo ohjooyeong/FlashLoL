@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Flash LoL",
+  "name": "Flash LoL - 롤 전적 검색 사이트",
   "icons": [
     {
       "src": "favicon.ico",

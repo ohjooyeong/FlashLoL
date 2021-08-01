@@ -57,7 +57,8 @@ const getMatchDetailAPI = async (matchId) => {
 const getChallengerRank = async () => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5`
+      `${process.env.API_URL}/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5`,
+      { headers }
     );
     return response.data;
   } catch (e) {
@@ -68,7 +69,8 @@ const getChallengerRank = async () => {
 const getGrandmasterRank = async () => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/league/v4/grandmasterleagues/by-queue/RANKED_SOLO_5x5`
+      `${process.env.API_URL}/league/v4/grandmasterleagues/by-queue/RANKED_SOLO_5x5`,
+      { headers }
     );
     return response.data;
   } catch (e) {
@@ -79,7 +81,8 @@ const getGrandmasterRank = async () => {
 const getMasterRank = async () => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5`
+      `${process.env.API_URL}/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5`,
+      { headers }
     );
     return response.data;
   } catch (e) {

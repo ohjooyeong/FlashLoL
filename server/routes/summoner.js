@@ -4,6 +4,9 @@ const {
   getSummonerProfileInfo,
   getMatchListAPI,
   getMatchDetailAPI,
+  getChallengerRank,
+  getGrandmasterRank,
+  getMasterRank,
 } = require("../api/summoner");
 const qs = require("querystring");
 const { rankInfoAdd, rankInfoChange } = require("../util/summonerUtil");
@@ -114,5 +117,45 @@ router.post("/game", async (req, res, next) => {
 //         next(e);
 //     }
 // });
+
+router.post("/rank", async (req, res, next) => {
+  try {
+    return res.status(200).json({});
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
+function getTierList(league) {
+  let list = league.entries.map((summoner) => {
+    summoner["tier"] = league.tier;
+    summoner["queue"] = league.queue;
+    return summoner;
+  });
+  return list;
+}
+
+router.get("/rank/tier", async (req, res, next) => {
+  try {
+    const summonerRankList = [];
+    let chList;
+    let gmList;
+    let mrList;
+    const challengerleagues = await getChallengerRank();
+    chList = getTierList(challengerleagues);
+    summonerRankList.push(...chList);
+    const grandmasterleagues = await getGrandmasterRank();
+    gmList = getTierList(grandmasterleagues);
+    summonerRankList.push(...gmList);
+    const masterleagues = await getMasterRank();
+    mrList = getTierList(masterleagues);
+    summonerRankList.push(...mrList);
+    return res.status(200).json({ summonerRankList });
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
 
 module.exports = router;
