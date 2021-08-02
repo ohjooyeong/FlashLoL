@@ -9,7 +9,12 @@ const {
   getMasterRank,
 } = require("../api/summoner");
 const qs = require("querystring");
-const { rankInfoAdd, rankInfoChange } = require("../util/summonerUtil");
+const {
+  rankInfoAdd,
+  rankInfoChange,
+  getTierList,
+} = require("../util/summonerUtil");
+const { SummonerRank } = require("../models/SummonerRank");
 
 const router = express.Router();
 
@@ -127,16 +132,7 @@ router.post("/rank", async (req, res, next) => {
   }
 });
 
-function getTierList(league) {
-  let list = league.entries.map((summoner) => {
-    summoner["tier"] = league.tier;
-    summoner["queue"] = league.queue;
-    return summoner;
-  });
-  return list;
-}
-
-router.get("/rank/tier", async (req, res, next) => {
+router.get("/rank/refresh", async (req, res, next) => {
   try {
     const summonerRankList = [];
     let chList;
@@ -151,7 +147,31 @@ router.get("/rank/tier", async (req, res, next) => {
     const masterleagues = await getMasterRank();
     mrList = getTierList(masterleagues);
     summonerRankList.push(...mrList);
-    return res.status(200).json({ summonerRankList });
+    summonerRankList.map((s) => {
+      const filter = { summonerId: s.summonerId };
+      const update = {
+        summonerName: s.summonerName,
+        leaguePoints: s.leaguePoints,
+        rank: s.rank,
+        wins: s.wins,
+        losses: s.losses,
+        veteran: s.veteran,
+        inactive: s.inactive,
+        freshBlood: s.freshBlood,
+        hotStreak: s.hotStreak,
+        tier: s.tier,
+        queue: s.queue,
+      };
+      SummonerRank.findOneAndUpdate(filter, update, {
+        new: true,
+        upsert: true,
+      }).exec((err, updateSummoner) => {
+        if (err) return res.status(400).send(err);
+        return updateSummoner;
+      });
+    });
+
+    return res.status(200).json({ apiStatus: { success: true } });
   } catch (e) {
     console.log(e);
     next(e);

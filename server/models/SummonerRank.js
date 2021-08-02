@@ -45,4 +45,4 @@ const summonerRankSchema = mongoose.Schema(
 
 const SummonerRank = mongoose.model("SummonerRank", summonerRankSchema);
 
-export default SummonerRank;
+module.exports = { SummonerRank };

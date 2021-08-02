@@ -62,7 +62,17 @@ function rankInfoChange(v) {
   return v;
 }
 
+function getTierList(league) {
+  let list = league.entries.map((summoner) => {
+    summoner["tier"] = league.tier;
+    summoner["queue"] = league.queue;
+    return summoner;
+  });
+  return list;
+}
+
 module.exports = {
   rankInfoAdd,
   rankInfoChange,
+  getTierList,
 };
