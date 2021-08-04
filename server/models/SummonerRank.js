@@ -10,7 +10,7 @@ const summonerRankSchema = mongoose.Schema(
       type: String,
     },
     leaguePoints: {
-      type: String,
+      type: Number,
     },
     queue: {
       type: String,
@@ -22,13 +22,13 @@ const summonerRankSchema = mongoose.Schema(
       type: String,
     },
     wins: {
-      type: String,
+      type: Number,
     },
     losses: {
-      type: String,
+      type: Number,
     },
     veteran: {
-      type: String,
+      type: Boolean,
     },
     inactive: {
       type: Boolean,

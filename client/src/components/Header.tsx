@@ -29,7 +29,7 @@ function Header({ history }: RouteComponentProps) {
           <SubmenuContainer>
             <SubmenuList>
               <SubmenuLi>
-                <SubmenuTxt to="#">소환사 랭킹</SubmenuTxt>
+                <SubmenuTxt to="/ranking">소환사 랭킹</SubmenuTxt>
               </SubmenuLi>
             </SubmenuList>
           </SubmenuContainer>

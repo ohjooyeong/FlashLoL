@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import HomePage from './HomePage/HomePage';
 import SummonerProfilePage from './SummonerProfilePage/SummonerProfilePage';
+import SummonerRankingPage from './SummonerRankingPage/SummonerRankingPage';
 
 function Router() {
   return (
@@ -14,6 +15,7 @@ function Router() {
         <Wrapper>
           <Switch>
             <Route path="/" exact component={HomePage} />
+            <Route path="/ranking" exact component={SummonerRankingPage} />
             <Route
               path="/summoner/:term"
               exact

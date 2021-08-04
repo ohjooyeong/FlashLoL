@@ -44,6 +44,17 @@ function rankInfoAdd(profile) {
 
   return profile;
 }
+function rankRateAdd(v) {
+  if (v["wins"] === 0) {
+    return 0;
+  }
+
+  let fixed =
+    Math.round(v["wins"] / (v["wins"] + v["losses"]) / 0.0001) * 0.001 * 10;
+  fixed = parseFloat(fixed.toFixed(1), 10);
+
+  return fixed;
+}
 
 function rankInfoChange(v) {
   if (v["queueType"] === "RANKED_SOLO_5x5") {
@@ -51,14 +62,8 @@ function rankInfoChange(v) {
   } else {
     v["queueType"] = "자유랭크";
   }
+  v["winning_rate"] = rankRateAdd(v);
 
-  if (v["wins"] === 0) {
-    return (v["winning_rate"] = 0);
-  }
-
-  let fixed =
-    Math.round(v["wins"] / (v["wins"] + v["losses"]) / 0.0001) * 0.001 * 10;
-  v["winning_rate"] = parseFloat(fixed.toFixed(1), 10);
   return v;
 }
 
@@ -75,4 +80,5 @@ module.exports = {
   rankInfoAdd,
   rankInfoChange,
   getTierList,
+  rankRateAdd,
 };

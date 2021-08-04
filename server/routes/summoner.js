@@ -13,6 +13,7 @@ const {
   rankInfoAdd,
   rankInfoChange,
   getTierList,
+  rankRateAdd,
 } = require("../util/summonerUtil");
 const { SummonerRank } = require("../models/SummonerRank");
 
@@ -123,9 +124,26 @@ router.post("/game", async (req, res, next) => {
 //     }
 // });
 
-router.post("/rank", async (req, res, next) => {
+router.post("/ranking", async (req, res, next) => {
+  let { page } = req.body;
   try {
-    return res.status(200).json({});
+    if (!page || Number(page) <= 1) {
+      page = 1;
+    }
+    page = Number(page);
+    const start = (page - 1) * 50;
+    const end = page * 50;
+    let summonerRankData = await SummonerRank.find({})
+      .sort({
+        leaguePoints: -1,
+        tier: 1,
+      })
+      .skip(start)
+      .limit(end - start);
+
+    return res
+      .status(200)
+      .json({ apiStatus: { success: true }, summonerRankData, page });
   } catch (e) {
     console.log(e);
     next(e);
@@ -151,7 +169,7 @@ router.get("/rank/refresh", async (req, res, next) => {
       const filter = { summonerId: s.summonerId };
       const update = {
         summonerName: s.summonerName,
-        leaguePoints: s.leaguePoints,
+        leaguePoints: Number(s.leaguePoints),
         rank: s.rank,
         wins: s.wins,
         losses: s.losses,

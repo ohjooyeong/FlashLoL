@@ -14,4 +14,4 @@ export const getSummonerRankingAsync = createAsyncAction(
   GET_SUMMONNER_RANKING_REQUEST,
   GET_SUMMONNER_RANKING_SUCCESS,
   GET_SUMMONNER_RANKING_FAILURE,
-)<string, RankingDTO, AxiosError>();
+)<string | string[] | null, RankingDTO, AxiosError>();
