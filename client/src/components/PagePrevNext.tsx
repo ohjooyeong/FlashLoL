@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function PagePrevNext({ paginate }: any) {
+type PagePrevNextProps = {
+  paginate: (prev: boolean, next: boolean) => void;
+};
+
+function PagePrevNext({ paginate }: PagePrevNextProps) {
   return (
     <RankingPaginationContainer>
       <RankingPagination>

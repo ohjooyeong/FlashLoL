@@ -10,7 +10,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import MatchCardDetail from './MatchCardDetail';
 
-function MatchCardContent({ gamedata, champions }: any) {
+type MatchCardContentProps = {
+  gamedata: GamedataType;
+  champions: ChampionsType;
+};
+
+type GamedataType = {
+  gameCreation: number;
+  gameDuration: number;
+  gameId: number;
+  gameMode: string;
+  gameType: string;
+  gameVersion: string;
+  mapId: number;
+  participantIdentities: Array<any>;
+  participants: Array<any>;
+  platformId: string;
+  queueId: number;
+  seasonId: number;
+  teams: Array<any>;
+};
+
+type ChampionsType = {
+  data: any;
+  format: string;
+  type: string;
+  version: string;
+};
+
+function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
   const { data: summonerData } = useSelector(
     (state: RootState) => state.summoners.summonerProfile,
   );

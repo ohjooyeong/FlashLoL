@@ -1,8 +1,12 @@
 import React from 'react';
-import ReactLoading from 'react-loading';
+import ReactLoading, { LoadingType } from 'react-loading';
 import styled from 'styled-components';
 
-const Loading = ({ types }: any) => (
+type LoadingProps = {
+  types: LoadingType | undefined;
+};
+
+const Loading = ({ types }: LoadingProps) => (
   <Container>
     <LoadingBar color={'#ffffff'} type={types} height={500} width={200} />
   </Container>

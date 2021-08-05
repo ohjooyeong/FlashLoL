@@ -2,7 +2,44 @@ import React from 'react';
 import styled from 'styled-components';
 import { RIOT_CDN } from '../../config/cdn_value';
 
-function MatchCardDetail({ team1, team2, aboutTeams }: any) {
+type MatchCardDetailProps = {
+  team1: Array<teamType>;
+  team2: Array<teamType>;
+  aboutTeams: Array<aboutTeamsType>;
+};
+
+type teamType = {
+  championData: any;
+  championId: number;
+  participantId: number;
+  player: any;
+  spell1Id: number;
+  spell2Id: number;
+  stats: any;
+  teamId: number;
+  timeline: any;
+};
+
+type aboutTeamsType = {
+  bans: Array<any>;
+  baronKills: number;
+  dominionVictoryScore: number;
+  dragonKills: number;
+  firstBaron: boolean;
+  firstBlood: boolean;
+  firstDragon: boolean;
+  firstInhibitor: boolean;
+  firstRiftHerald: boolean;
+  firstTower: boolean;
+  inhibitorKills: number;
+  riftHeraldKills: number;
+  teamId: number;
+  towerKills: number;
+  vilemawKills: number;
+  win: string;
+};
+
+function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
   const teams = [team1, team2];
   const totalDamageScore = [...team1, ...team2].reduce((acc: any, cur: any) => {
     return acc > cur.stats.totalDamageDealtToChampions
