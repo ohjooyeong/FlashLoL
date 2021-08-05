@@ -54,7 +54,7 @@ const getMatchDetailAPI = async (matchId) => {
   }
 };
 
-const getChallengerRank = async () => {
+const getChallengerRankAPI = async () => {
   try {
     const response = await axios.get(
       `${process.env.API_URL}/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5`,
@@ -66,7 +66,7 @@ const getChallengerRank = async () => {
   }
 };
 
-const getGrandmasterRank = async () => {
+const getGrandmasterRankAPI = async () => {
   try {
     const response = await axios.get(
       `${process.env.API_URL}/league/v4/grandmasterleagues/by-queue/RANKED_SOLO_5x5`,
@@ -78,7 +78,7 @@ const getGrandmasterRank = async () => {
   }
 };
 
-const getMasterRank = async () => {
+const getMasterRankAPI = async () => {
   try {
     const response = await axios.get(
       `${process.env.API_URL}/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5`,
@@ -95,7 +95,7 @@ module.exports = {
   getSummonerProfileInfo,
   getMatchListAPI,
   getMatchDetailAPI,
-  getChallengerRank,
-  getGrandmasterRank,
-  getMasterRank,
+  getChallengerRankAPI,
+  getGrandmasterRankAPI,
+  getMasterRankAPI,
 };

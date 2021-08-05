@@ -25,6 +25,7 @@ export interface SummonerRakingDTO {
   inactive: boolean;
   freshBlood: boolean;
   hotStreak: boolean;
+  uptodate: string;
 }
 
 export interface RankingDTO {

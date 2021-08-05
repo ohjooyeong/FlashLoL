@@ -4,17 +4,9 @@ const {
   getSummonerProfileInfo,
   getMatchListAPI,
   getMatchDetailAPI,
-  getChallengerRank,
-  getGrandmasterRank,
-  getMasterRank,
 } = require("../api/summoner");
 const qs = require("querystring");
-const {
-  rankInfoAdd,
-  rankInfoChange,
-  getTierList,
-  rankRateAdd,
-} = require("../util/summonerUtil");
+const { rankInfoAdd, rankInfoChange } = require("../util/summonerUtil");
 const { SummonerRank } = require("../models/SummonerRank");
 
 const router = express.Router();
@@ -99,31 +91,6 @@ router.post("/game", async (req, res, next) => {
   }
 });
 
-// router.get("/game/:gameId", async (req, res, next) => {
-//     const {
-//         params: { gameId },
-//     } = req;
-//     try {
-//         const summonerDetailGameInfo = {};
-//         const match = await getMatchDetailAPI(gameId);
-//         if (match.status && match.status.status_code >= 400) {
-//             return res.status(200).json({
-//                 apiStatus: {
-//                     success: false,
-//                     status: match.status.status_code,
-//                     message: match.status.message,
-//                 },
-//                 summonerDetailGameInfo: summonerDetailGameInfo,
-//             });
-//         }
-//         summonerDetailGameInfo["matchdata"] = match;
-//         return res.status(200).json(summonerDetailGameInfo);
-//     } catch (e) {
-//         console.log(e);
-//         next(e);
-//     }
-// });
-
 router.post("/ranking", async (req, res, next) => {
   let { page } = req.body;
   try {
@@ -144,52 +111,6 @@ router.post("/ranking", async (req, res, next) => {
     return res
       .status(200)
       .json({ apiStatus: { success: true }, summonerRankData, page });
-  } catch (e) {
-    console.log(e);
-    next(e);
-  }
-});
-
-router.get("/rank/refresh", async (req, res, next) => {
-  try {
-    const summonerRankList = [];
-    let chList;
-    let gmList;
-    let mrList;
-    const challengerleagues = await getChallengerRank();
-    chList = getTierList(challengerleagues);
-    summonerRankList.push(...chList);
-    const grandmasterleagues = await getGrandmasterRank();
-    gmList = getTierList(grandmasterleagues);
-    summonerRankList.push(...gmList);
-    const masterleagues = await getMasterRank();
-    mrList = getTierList(masterleagues);
-    summonerRankList.push(...mrList);
-    summonerRankList.map((s) => {
-      const filter = { summonerId: s.summonerId };
-      const update = {
-        summonerName: s.summonerName,
-        leaguePoints: Number(s.leaguePoints),
-        rank: s.rank,
-        wins: s.wins,
-        losses: s.losses,
-        veteran: s.veteran,
-        inactive: s.inactive,
-        freshBlood: s.freshBlood,
-        hotStreak: s.hotStreak,
-        tier: s.tier,
-        queue: s.queue,
-      };
-      SummonerRank.findOneAndUpdate(filter, update, {
-        new: true,
-        upsert: true,
-      }).exec((err, updateSummoner) => {
-        if (err) return res.status(400).send(err);
-        return updateSummoner;
-      });
-    });
-
-    return res.status(200).json({ apiStatus: { success: true } });
   } catch (e) {
     console.log(e);
     next(e);

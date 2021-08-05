@@ -39,6 +39,9 @@ const summonerRankSchema = mongoose.Schema(
     hotStreak: {
       type: Boolean,
     },
+    uptodate: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
