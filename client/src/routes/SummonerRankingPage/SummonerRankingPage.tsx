@@ -31,7 +31,7 @@ function SummonerRankingPage({ history }: RouteComponentProps) {
       return history.push(`/ranking?page=${data.page}`);
     }
     if (data && next && data.summonerRankData.length < 50) {
-      return history.push(`/ranking?page=1`);
+      return history.push(`/ranking?page=${data.page}`);
     }
 
     if (data && prev) return history.push(`/ranking?page=${data.page - 1}`);

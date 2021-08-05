@@ -108,6 +108,27 @@ router.post("/ranking", async (req, res, next) => {
       .skip(start)
       .limit(end - start);
 
+    if (summonerRankData && summonerRankData.length < 50) {
+      for (let i = 0; i < 50 - summonerRankData.length; i++) {
+        tmp = {
+          summonerId: `empty${i}`,
+          summonerName: "-",
+          leaguePoints: 0,
+          rank: "-",
+          wins: 0,
+          losses: 0,
+          veteran: false,
+          inactive: false,
+          freshBlood: false,
+          hotStreak: false,
+          tier: "-",
+          queue: "RANKED_SOLO_5x5",
+          uptodate: "empty",
+        };
+        summonerRankData.push(tmp);
+      }
+    }
+
     return res
       .status(200)
       .json({ apiStatus: { success: true }, summonerRankData, page });
