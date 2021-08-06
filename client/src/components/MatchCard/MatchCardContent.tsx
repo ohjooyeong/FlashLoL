@@ -136,7 +136,7 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
     gamedata?.queueId === 440
       ? '자유 랭크'
       : gamedata?.queueId === 420
-      ? '솔로랭크'
+      ? '솔로 랭크'
       : gamedata?.queueId === 430
       ? '일반'
       : '칼바람 나락';
@@ -146,9 +146,9 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
       {userInfo[0] && (
         <>
           <MatchHistory>
-            <MatchHistoryResult
-              winlose={userInfo[0].stats.win}
-            ></MatchHistoryResult>
+            <MatchHistoryResult winlose={userInfo[0].stats.win}>
+              <MatchHistoryResultText>{win}</MatchHistoryResultText>
+            </MatchHistoryResult>
             <MatchHistoryContent>
               <MatchHistoryRowStatus>
                 <MatchHistoryColStatus>
@@ -484,6 +484,11 @@ const MatchHistoryResult = styled.div<{ winlose: boolean }>`
   }
 `;
 
+const MatchHistoryResultText = styled.span`
+  writing-mode: tb-rl;
+  display: inline-block;
+`;
+
 const MatchHistoryContent = styled.div`
   flex-grow: 1;
   padding: 12px 16px 0 8px;
@@ -531,7 +536,7 @@ const ResultMatchText = styled.span<{ winlose: boolean }>`
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 0.5rem;
-
+  display: none;
   // 768px
   ${props => props.theme.device.tabletM} {
     display: block;
@@ -555,7 +560,7 @@ const ResultMatchDuration = styled.span`
 `;
 
 const ResultMatchDate = styled.span`
-  display: grey;
+  color: grey;
   margin-top: 0.25rem;
 
   // 768px
@@ -689,15 +694,15 @@ const MatchHistoryColKda = styled.div`
 
   // 475px
   ${props => props.theme.device.mobile} {
-    width: 140px;
+    width: 110px;
   }
   // 576px
   ${props => props.theme.device.tabletS} {
-    width: 110px;
+    width: 120px;
   }
   // 768px
   ${props => props.theme.device.tabletM} {
-    width: 100px;
+    width: 110px;
   }
   // 992px
   ${props => props.theme.device.tabletL} {
@@ -727,7 +732,7 @@ const MatchHistoryColStats = styled.div`
   vertical-align: middle;
   // 475px
   ${props => props.theme.device.mobile} {
-    width: 120px;
+    width: 80px;
   }
   // 576px
   ${props => props.theme.device.tabletS} {
@@ -769,8 +774,8 @@ const MatchHistoryColSmallSummoner = styled.div`
   vertical-align: middle;
   font-size: 0;
   line-height: 1;
-  // 576px
-  ${props => props.theme.device.tabletS} {
+  // 475px
+  ${props => props.theme.device.mobile} {
     display: inline-block;
   }
   // 768px
@@ -945,10 +950,15 @@ const Summoner = styled.div`
 `;
 
 const SummonerImg = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   vertical-align: middle;
   border: 0;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    width: 24px;
+    height: 24px;
+  }
   // 992px
   ${props => props.theme.device.tabletL} {
     width: 14px;
@@ -982,7 +992,7 @@ const MLink = styled(Link)`
 const MatchHistoryExpandToggle = styled.div<{ winlose: boolean }>`
   background-color: ${props => (props.winlose ? '#5393ca' : '#ed6767')};
   display: flex;
-  width: 30px;
+  width: 20px;
   position: absolute;
   top: 0;
   right: 0;
@@ -992,6 +1002,14 @@ const MatchHistoryExpandToggle = styled.div<{ winlose: boolean }>`
   align-items: flex-end;
   padding-bottom: 16px;
   font-size: 12px;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    width: 25px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    width: 30px;
+  }
 `;
 
 const CusFontAwesome = styled(FontAwesomeIcon)`

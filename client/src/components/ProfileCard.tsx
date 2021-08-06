@@ -27,15 +27,7 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
     return (
       <RankContainer key={p.leagueId + p.queueType + i}>
         <RankImgContainer>
-          <img
-            style={{
-              width: '60px',
-              height: '60px',
-              verticalAlign: 'middle',
-              borderStyle: 'none',
-            }}
-            src={`/images/ranked-emblems/${p.tier}.png`}
-          ></img>
+          <RankImg src={`/images/ranked-emblems/${p.tier}.png`}></RankImg>
         </RankImgContainer>
         <RankInfo>
           <RankTitle>{p.queueType}</RankTitle>
@@ -236,8 +228,14 @@ const RightCard = styled.div`
   margin-top: 20px;
   padding-top: 20px;
   border-top: 1px solid gray;
-  justify-content: space-around;
+  flex-direction: column;
 
+  // 475px
+  ${props => props.theme.device.mobile} {
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
   // 768px
   ${props => props.theme.device.tabletM} {
     margin-top: 0;
@@ -248,8 +246,21 @@ const RightCard = styled.div`
 
 const RankContainer = styled.div`
   display: flex;
+
   &:last-child {
-    margin-left: 1.5rem;
+    margin-top: 20px;
+    border-top: 1px solid gray;
+    padding-top: 20px;
+  }
+
+  // 475px
+  ${props => props.theme.device.mobile} {
+    &:last-child {
+      margin-top: 0;
+      margin-left: 1.5rem;
+      border-top: 0;
+      padding-top: 0;
+    }
   }
 `;
 
@@ -258,9 +269,21 @@ const RankImgContainer = styled.div`
   align-items: center;
 `;
 
+const RankImg = styled.img`
+  width: 90px;
+  height: 90px;
+  vertical-align: middle;
+  border-style: none;
+  // 475px
+  ${props => props.theme.device.mobile} {
+    width: 60px;
+    height: 60px;
+  }
+`;
+
 const RankInfo = styled.div`
   width: 120px;
-  margin-left: 1rem;
+  margin-left: 2rem;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -268,15 +291,8 @@ const RankInfo = styled.div`
   font-weight: initial;
   color: #e4eaec;
   // 768px
-  ${props => props.theme.device.tabletM} {
-    width: 120px;
+  ${props => props.theme.device.mobile} {
     margin-left: 1rem;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    line-height: 1.5;
-    font-weight: initial;
-    color: #e4eaec;
   }
 `;
 
