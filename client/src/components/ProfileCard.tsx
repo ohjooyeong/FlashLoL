@@ -25,7 +25,7 @@ type ProfileDataParams = {
 function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
   const rankCard = profileData.map((p: ProfileDataParams, i) => {
     return (
-      <React.Fragment key={p.leagueId + p.queueType + i}>
+      <RankContainer key={p.leagueId + p.queueType + i}>
         <RankImgContainer>
           <img
             style={{
@@ -49,7 +49,7 @@ function ProfileCard({ profileData, profileInfo }: ProfileCardProps) {
             <RankWin>{p.wins}승</RankWin> <RankLose>{p.losses}패</RankLose>
           </span>
         </RankInfo>
-      </React.Fragment>
+      </RankContainer>
     );
   });
 
@@ -199,7 +199,12 @@ const CardBody = styled.div`
 
 const CardContent = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    justify-content: space-between;
+    flex-direction: row;
+  }
 `;
 
 const LeftCard = styled.div`
@@ -228,11 +233,28 @@ const NameText = styled.a`
 const RightCard = styled.div`
   display: flex;
   margin-left: 0;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid gray;
+  justify-content: space-around;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    margin-top: 0;
+    border-top: 0;
+    padding-top: 0;
+  }
+`;
+
+const RankContainer = styled.div`
+  display: flex;
+  &:last-child {
+    margin-left: 1.5rem;
+  }
 `;
 
 const RankImgContainer = styled.div`
   display: flex;
-  margin-left: 1.5rem;
   align-items: center;
 `;
 
@@ -245,6 +267,17 @@ const RankInfo = styled.div`
   line-height: 1.5;
   font-weight: initial;
   color: #e4eaec;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    width: 120px;
+    margin-left: 1rem;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    line-height: 1.5;
+    font-weight: initial;
+    color: #e4eaec;
+  }
 `;
 
 const RankTitle = styled.span`

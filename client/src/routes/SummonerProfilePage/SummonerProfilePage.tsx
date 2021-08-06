@@ -46,7 +46,21 @@ function SummonerProfilePage({ match }: RouteComponentProps<PathParamsProps>) {
                   profileInfo={data.summonerProfile.info}
                 ></ProfileCard>
                 <MatchContainer>
-                  <MatchHistoryBoxContainer></MatchHistoryBoxContainer>
+                  <MatchHistoryBoxContainer>
+                    <MatchHistoryBoxHeader>
+                      {' '}
+                      매치 히스토리{' '}
+                    </MatchHistoryBoxHeader>
+                    <MatchHistoryBoxContent>
+                      <MatchHistoryBoxContentFilter>
+                        <MatchHistoryBoxContentFilterQueue>
+                          <FilterQueueBtn>
+                            <span style={{ display: 'inline' }}>전체</span>
+                          </FilterQueueBtn>
+                        </MatchHistoryBoxContentFilterQueue>
+                      </MatchHistoryBoxContentFilter>
+                    </MatchHistoryBoxContent>
+                  </MatchHistoryBoxContainer>
                   <MatchListContainer>
                     <MatchCardList
                       accountId={data.summonerProfile.info?.accountId}
@@ -63,8 +77,23 @@ function SummonerProfilePage({ match }: RouteComponentProps<PathParamsProps>) {
 }
 
 const SContainer = styled.div`
-  max-width: 1140px;
   margin: 0 auto;
+  // 540px
+  ${props => props.theme.device.tabletS} {
+    max-width: 540px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    max-width: 720px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    max-width: 960px;
+  }
+  // 1200px
+  ${props => props.theme.device.laptop} {
+    max-width: 1140px;
+  }
 `;
 
 const SWrapper = styled.div`
@@ -81,7 +110,49 @@ const MatchContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const MatchHistoryBoxContainer = styled.div``;
+const MatchHistoryBoxContainer = styled.div`
+  border: 1px solid #e6e6e6;
+`;
+
+const MatchHistoryBoxHeader = styled.div`
+  height: 44px;
+  line-height: 44px;
+  background-color: rgba(250, 250, 250, 0.9);
+  border-bottom: 1px solid #e6e6e6;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 14px;
+`;
+
+const MatchHistoryBoxContent = styled.div`
+  background-color: rgba(250, 250, 250, 0.8);
+`;
+
+const MatchHistoryBoxContentFilter = styled.div`
+  position: relative;
+  padding: 12px 16px;
+`;
+
+const MatchHistoryBoxContentFilterQueue = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const FilterQueueBtn = styled.button`
+  margin: 0;
+  padding: 2px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: #ed6767;
+  font: inherit;
+  line-height: normal;
+  border-bottom: 4px solid #ed6767;
+  font-weight: 700;
+`;
 
 const MatchListContainer = styled.div`
   margin-top: 1rem;

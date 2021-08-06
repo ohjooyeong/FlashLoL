@@ -153,15 +153,15 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
               <MatchHistoryRowStatus>
                 <MatchHistoryColStatus>
                   <ResultMatchText winlose={userInfo[0].stats.win}>
-                    {win}
+                    {win}{' '}
                   </ResultMatchText>
-                  <ResultMatchType>{queue}</ResultMatchType>
+                  <ResultMatchType>{queue} </ResultMatchType>
                   <ResultMatchDuration>{`${moment(0)
                     .seconds(gamedata.gameDuration)
-                    .format('mm:ss')}`}</ResultMatchDuration>
+                    .format('mm:ss')} `}</ResultMatchDuration>
                   <ResultMatchDate>{`${moment(
                     gamedata.gameCreation,
-                  ).fromNow()}`}</ResultMatchDate>
+                  ).fromNow()} `}</ResultMatchDate>
                 </MatchHistoryColStatus>
               </MatchHistoryRowStatus>
               <MatchHistoryRowStats>
@@ -269,6 +269,46 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
                   </StatInfo>
                   <StatWards></StatWards>
                 </MatchHistoryColStats>
+                <MatchHistoryColSmallSummoner>
+                  <Summoners>
+                    {team1 &&
+                      team1.map((t, i) => (
+                        <Summoner
+                          key={
+                            t.player.accountId +
+                            t.championId +
+                            t.participantId +
+                            i
+                          }
+                        >
+                          <MLink to={`/summoner/${t.player.summonerName}`}>
+                            <SummonerImg
+                              src={`${RIOT_CDN}/img/champion/${t.championData[0].id}.png`}
+                            ></SummonerImg>
+                          </MLink>
+                        </Summoner>
+                      ))}
+                  </Summoners>
+                  <Summoners>
+                    {team2 &&
+                      team2.map((t, i) => (
+                        <Summoner
+                          key={
+                            t.player.accountId +
+                            t.championId +
+                            t.participantId +
+                            i
+                          }
+                        >
+                          <MLink to={`/summoner/${t.player.summonerName}`}>
+                            <SummonerImg
+                              src={`${RIOT_CDN}/img/champion/${t.championData[0].id}.png`}
+                            ></SummonerImg>
+                          </MLink>
+                        </Summoner>
+                      ))}
+                  </Summoners>
+                </MatchHistoryColSmallSummoner>
               </MatchHistoryRowStats>
               <MatchHistoryRowItmes>
                 <MatchHistoryColItmes>
@@ -297,14 +337,14 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
                         ></img>
                       ) : null}
                     </Item>
-                    <Item>
+                    <ItemWard>
                       {userInfo[0].stats.item6 ? (
                         <img
                           src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item6}.png`}
                           style={{ width: '100%', height: '100%' }}
                         ></img>
                       ) : null}
-                    </Item>
+                    </ItemWard>
                   </Items>
                   <Items>
                     <Item>
@@ -331,6 +371,14 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
                         ></img>
                       ) : null}
                     </Item>
+                    <ItemWard2>
+                      {userInfo[0].stats.item6 ? (
+                        <img
+                          src={`${RIOT_CDN}/img/item/${userInfo[0].stats.item6}.png`}
+                          style={{ width: '100%', height: '100%' }}
+                        ></img>
+                      ) : null}
+                    </ItemWard2>
                   </Items>
                 </MatchHistoryColItmes>
                 <MatchHistoryColSummoners>
@@ -346,14 +394,9 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
                           }
                         >
                           <MLink to={`/summoner/${t.player.summonerName}`}>
-                            <img
-                              style={{
-                                width: '14px',
-                                height: '14px',
-                                verticalAlign: 'middle',
-                              }}
+                            <SummonerImg
                               src={`${RIOT_CDN}/img/champion/${t.championData[0].id}.png`}
-                            ></img>
+                            ></SummonerImg>
                             <SummonerName>{t.player.summonerName}</SummonerName>
                           </MLink>
                         </Summoner>
@@ -371,14 +414,9 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
                           }
                         >
                           <MLink to={`/summoner/${t.player.summonerName}`}>
-                            <img
-                              style={{
-                                width: '14px',
-                                height: '14px',
-                                verticalAlign: 'middle',
-                              }}
+                            <SummonerImg
                               src={`${RIOT_CDN}/img/champion/${t.championData[0].id}.png`}
-                            ></img>
+                            ></SummonerImg>
                             <SummonerName>{t.player.summonerName}</SummonerName>
                           </MLink>
                         </Summoner>
@@ -410,41 +448,65 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
 }
 
 const MatchHistory = styled.div`
+  display: flex;
   position: relative;
   border: 1px solid #e6e6e6;
   flex-direction: row;
   margin-bottom: 10px;
+  background-color: rgba(250, 250, 250, 0.7);
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: block;
+  }
 `;
 
 const MatchHistoryResult = styled.div<{ winlose: boolean }>`
   background-color: ${props => (props.winlose ? '#5393ca' : '#ed6767')};
-  display: inline-block;
-  width: 8px;
-  height: 100px;
-  font-size: 0;
-  vertical-align: middle;
+  display: flex;
   flex-basis: 32px;
   flex-shrink: 0;
+  height: 130px;
+  font-size: 12px;
   color: #fff;
   line-height: 1.2;
   align-items: center;
   font-weight: 700;
   justify-content: center;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: inline-block;
+    width: 8px;
+    height: 100px;
+    font-size: 0;
+    vertical-align: middle;
+  }
 `;
 
 const MatchHistoryContent = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  padding: 0;
   flex-grow: 1;
+  padding: 12px 16px 0 8px;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+  }
 `;
 
 const MatchHistoryRowStatus = styled.div`
-  margin-bottom: 0;
   display: inline-block;
   vertical-align: middle;
   font-size: 0;
   line-height: 1;
+  margin-bottom: 16px;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    margin-bottom: 0;
+  }
 `;
 
 const MatchHistoryColStatus = styled.div`
@@ -453,7 +515,15 @@ const MatchHistoryColStatus = styled.div`
   text-align: center;
   display: inline-block;
   vertical-align: middle;
-  width: 110px;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    width: 100px;
+  }
+  // 1200px
+  ${props => props.theme.device.laptop} {
+    width: 110px;
+  }
 `;
 
 const ResultMatchText = styled.span<{ winlose: boolean }>`
@@ -461,42 +531,84 @@ const ResultMatchText = styled.span<{ winlose: boolean }>`
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  display: block;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: block;
+  }
 `;
 
 const ResultMatchType = styled.span`
-  display: block;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: block;
+  }
 `;
 
 const ResultMatchDuration = styled.span`
-  display: block;
   margin-top: 0.25rem;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: block;
+  }
 `;
 
 const ResultMatchDate = styled.span`
   display: grey;
   margin-top: 0.25rem;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: block;
+  }
 `;
 
 const MatchHistoryRowStats = styled.div`
-  display: inline-block;
-  vertical-align: middle;
+  font-size: 0;
+  line-height: 1;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: inline-block;
+    vertical-align: middle;
+  }
 `;
 
 const MatchHistoryColParticipant = styled.div`
-  width: 140px;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
   font-size: 0;
+  line-height: 1;
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    width: 90px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 120px;
+  }
+  // 1200px
+  ${props => props.theme.device.laptop} {
+    width: 140px;
+  }
 `;
 
 const Champion = styled.div`
   display: inline-block;
-  width: 52px;
-  height: 52px;
   position: relative;
   vertical-align: middle;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 52px;
+    height: 52px;
+  }
 `;
 
 const ChampionLevel = styled.div`
@@ -511,45 +623,90 @@ const ChampionLevel = styled.div`
 `;
 
 const Spells = styled.div`
-  margin-left: 4px;
+  margin-left: 2px;
   display: inline-block;
   vertical-align: middle;
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    margin-left: 4px;
+  }
 `;
 
 const Spell = styled.div`
-  width: 24px;
-  height: 24px;
+  display: block;
+  width: 20px;
   &:last-child {
-    margin-top: 4px;
+    margin-top: 2px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 24px;
+    height: 24px;
+    &:last-child {
+      margin-top: 4px;
+    }
   }
 `;
 
 const Runes = styled.div`
-  margin-left: 4px;
+  margin-left: 2px;
   display: inline-block;
   vertical-align: middle;
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    margin-left: 4px;
+  }
 `;
 
 const Rune = styled.div`
-  width: 24px;
-  height: 24px;
+  width: 20px;
   border-radius: 50%;
   padding: 2px;
   display: block;
   background-color: #000;
+
   &:last-child {
-    margin-top: 4px;
+    margin-top: 2px;
     padding: 4px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 24px;
+    height: 24px;
+    &:last-child {
+      margin-top: 4px;
+    }
   }
 `;
 
 const MatchHistoryColKda = styled.div`
-  width: 140px;
   font-size: 12px;
   line-height: 1;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
+  width: 90px;
+
+  // 475px
+  ${props => props.theme.device.mobile} {
+    width: 140px;
+  }
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    width: 110px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    width: 100px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 130px;
+  }
+  // 1200px
+  ${props => props.theme.device.laptop} {
+    width: 140px;
+  }
 `;
 
 const Kda = styled.div`
@@ -563,16 +720,43 @@ const KdaString = styled.div`
 `;
 
 const MatchHistoryColStats = styled.div`
-  width: 150px;
-  font-size: 14px;
+  width: 70px;
+  font-size: 12px;
   line-height: 1;
   display: inline-block;
   vertical-align: middle;
+  // 475px
+  ${props => props.theme.device.mobile} {
+    width: 120px;
+  }
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    width: 90px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    width: 115px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 130px;
+    font-size: 14px;
+  }
+  // 1200px
+  ${props => props.theme.device.laptop} {
+    width: 150px;
+  }
 `;
 
 const StatInfo = styled.div`
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 11px;
+  line-height: 14px;
+  display: block;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    font-size: 12px;
+    line-height: 18px;
+  }
 `;
 
 const StatWards = styled.div`
@@ -580,66 +764,201 @@ const StatWards = styled.div`
   margin-top: 0.25rem;
 `;
 
+const MatchHistoryColSmallSummoner = styled.div`
+  display: none;
+  vertical-align: middle;
+  font-size: 0;
+  line-height: 1;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    display: inline-block;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: none;
+    width: 130px;
+  }
+`;
+
 const MatchHistoryRowItmes = styled.div`
   margin-top: 0;
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
   line-height: 1;
+  margin-top: 12px;
+
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    margin-top: 8px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    margin-top: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
 `;
 
 const MatchHistoryColItmes = styled.div`
-  width: 220px;
+  font-size: 0;
   display: inline-block;
   vertical-align: middle;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    width: 116px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 140px;
+  }
+  // 1200px
+  ${props => props.theme.device.laptop} {
+    width: 220px;
+  }
 `;
 
 const Items = styled.div`
-  display: block;
+  display: inline-block;
   &:last-child {
-    margin-top: 4px;
+    margin-left: 2px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: block;
+    &:last-child {
+      margin-left: 0;
+      margin-top: 2px;
+    }
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    &:last-child {
+      margin-top: 4px;
+    }
   }
 `;
 
 const Item = styled.div`
-  width: 28px;
-  height: 28px;
   display: inline-block;
   vertical-align: middle;
+  width: 24px;
+  height: 24px;
   background-color: rgba(255, 255, 255, 0.3);
-  margin-left: 4px;
+  margin-left: 2px;
   &:first-child {
     margin-left: 0px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 28px;
+    height: 28px;
+    margin-left: 4px;
+    &:first-child {
+      margin-left: 0px;
+    }
+  }
+`;
+
+const ItemWard = styled.div`
+  display: none;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin-left: 2px;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: inline-block;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 28px;
+    height: 28px;
+    margin-left: 4px;
+  }
+`;
+
+const ItemWard2 = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin-left: 2px;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: none;
   }
 `;
 
 const MatchHistoryColSummoners = styled.div`
-  width: 320px;
-  display: inline-block;
+  display: none;
   vertical-align: middle;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: inline-block;
+    width: 130px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 280px;
+  }
+  // 1200px
+  ${props => props.theme.device.laptop} {
+    width: 320px;
+  }
 `;
 
 const Summoners = styled.div`
-  display: inline-block;
-  width: 50%;
   font-weight: 400;
   color: #341f97;
   &:last-child {
     color: #b71540;
+    margin-top: 2px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    display: inline-block;
+    width: 50%;
+    &:last-child {
+      margin-top: 0;
+    }
   }
 `;
 
 const Summoner = styled.div`
-  display: block;
+  display: inline-block;
   line-height: 1;
-  margin-top: 3px;
+  margin-left: 2px;
   &:first-child {
-    margin-top: 0px;
+    margin-left: 0;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    display: block;
+    margin-left: 0;
+    margin-top: 2px;
+    &:first-child {
+      margin-top: 0;
+      margin-left: 0;
+    }
+  }
+`;
+
+const SummonerImg = styled.img`
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  border: 0;
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 14px;
+    height: 14px;
   }
 `;
 
 const SummonerName = styled.span`
-  display: inline-block;
-  max-width: 110px;
+  display: none;
+  max-width: 140px;
   margin-left: 4px;
   font-size: 12px;
   vertical-align: middle;
@@ -648,6 +967,11 @@ const SummonerName = styled.span`
   text-overflow: ellipsis;
   &:hover {
     font-weight: 1000;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    display: inline-block;
+    max-width: 110px;
   }
 `;
 
