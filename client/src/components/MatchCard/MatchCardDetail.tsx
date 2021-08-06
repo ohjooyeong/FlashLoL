@@ -167,16 +167,18 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                           </MatchDetailOverviewSummonerColRunes>
                           <MatchDetailOverviewSummonerColSummoner>
                             <Dflex>
-                              <a
-                                href={`/summoner/${t.player.summonerName}`}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                <SName>{t.player.summonerName}</SName>
-                              </a>
+                              <SName>
+                                <a
+                                  href={`/summoner/${t.player.summonerName}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {t.player.summonerName}
+                                </a>
+                              </SName>
                             </Dflex>
                           </MatchDetailOverviewSummonerColSummoner>
-                          <MatchDetailOverviewSummonerColKad>
+                          <MatchDetailOverviewSummonerColKda>
                             <Kda>
                               {` ${t.stats.kills} /`}{' '}
                               <DeathSp>{`${t.stats.deaths}`}</DeathSp>
@@ -193,7 +195,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                   ).toFixed(2)
                                 : 'Perfect'}
                             </KdaString>
-                          </MatchDetailOverviewSummonerColKad>
+                          </MatchDetailOverviewSummonerColKda>
                           <MatchDetailOverviewSummonerColStats>
                             <Wards>
                               <Ward>
@@ -283,6 +285,8 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                   ></img>
                                 ) : null}
                               </Item>
+                            </Items>
+                            <Items>
                               <Item>
                                 {t.stats.item3 ? (
                                   <img
@@ -402,16 +406,18 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                           </MatchDetailOverviewSummonerColRunes>
                           <MatchDetailOverviewSummonerColSummoner>
                             <Dflex>
-                              <a
-                                href={`/summoner/${t.player.summonerName}`}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                <SName>{t.player.summonerName}</SName>
-                              </a>
+                              <SName>
+                                <a
+                                  href={`/summoner/${t.player.summonerName}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {t.player.summonerName}
+                                </a>
+                              </SName>
                             </Dflex>
                           </MatchDetailOverviewSummonerColSummoner>
-                          <MatchDetailOverviewSummonerColKad>
+                          <MatchDetailOverviewSummonerColKda>
                             <Kda>
                               {` ${t.stats.kills} /`}{' '}
                               <DeathSp>{`${t.stats.deaths}`}</DeathSp>
@@ -428,7 +434,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                   ).toFixed(2)
                                 : 'Perfect'}
                             </KdaString>
-                          </MatchDetailOverviewSummonerColKad>
+                          </MatchDetailOverviewSummonerColKda>
                           <MatchDetailOverviewSummonerColStats>
                             <Wards>
                               <Ward>
@@ -518,6 +524,8 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                   ></img>
                                 ) : null}
                               </Item>
+                            </Items>
+                            <Items>
                               <Item>
                                 {t.stats.item3 ? (
                                   <img
@@ -619,19 +627,31 @@ const RowContent = styled.div`
 const ColContent = styled.div`
   position: relative;
   width: 100%;
-  flex: 0 0 50%;
-  max-width: 50%;
+  flex: 0 0 100%;
+  max-width: 100%;
   padding-left: 0;
   padding-right: 0;
   &:last-child {
-    border-left: 1px solid #e6e6e6;
+    border-left: none;
+  }
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    &:last-child {
+      border-left: 1px solid #e6e6e6;
+    }
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    flex: 0 0 50%;
+    max-width: 50%;
   }
 `;
 
 const MatchDetailOverviewTeam = styled.div``;
 
 const MatchDetailOverviewTeamStatsWin = styled.div`
-  height: 40px;
+  height: 32px;
   display: flex;
   padding-left: 12px;
   padding-right: 12px;
@@ -641,10 +661,14 @@ const MatchDetailOverviewTeamStatsWin = styled.div`
   font-size: 12px;
   border-top-color: #5393ca;
   background-color: #d8e8f6;
+  // 475px
+  ${props => props.theme.device.mobile} {
+    height: 40px;
+  }
 `;
 
 const MatchDetailOverviewTeamStatsLose = styled.div`
-  height: 40px;
+  height: 32px;
   display: flex;
   padding-left: 12px;
   padding-right: 12px;
@@ -654,6 +678,10 @@ const MatchDetailOverviewTeamStatsLose = styled.div`
   font-size: 12px;
   border-top-color: #ed6767;
   background-color: #fdd;
+  // 475px
+  ${props => props.theme.device.mobile} {
+    height: 40px;
+  }
 `;
 
 const ResultWin = styled.div`
@@ -775,27 +803,64 @@ const MatchDetailOverviewSummonerColSummoner = styled.div`
   vertical-align: middle;
 `;
 
-const MatchDetailOverviewSummonerColKad = styled.div`
-  margin-left: 0;
+const MatchDetailOverviewSummonerColKda = styled.div`
   width: 70px;
-  display: inline-block;
+  display: none;
   line-height: 1;
   text-align: center;
   font-size: 12px;
   vertical-align: middle;
+  // 475px
+  ${props => props.theme.device.mobile} {
+    display: inline-block;
+  }
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    width: 100px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    margin-left: 32px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    margin-left: 0;
+    width: 70px;
+  }
 `;
 
 const MatchDetailOverviewSummonerColStats = styled.div`
-  margin-left: 16px;
-  width: 120px;
+  margin-left: 4px;
+  width: 110px;
   display: inline-block;
   vertical-align: middle;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    margin-left: 32px;
+    width: 120px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    margin-left: 16px;
+  }
 `;
 
 const MatchDetailOverviewSummonerColItems = styled.div`
-  margin-left: 16px;
+  margin-left: 4px;
   vertical-align: middle;
   display: inline-block;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    margin-left: 16px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    margin-left: 32px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    margin-left: 16px;
+  }
 `;
 
 const Spell = styled.div`
@@ -866,8 +931,12 @@ const Graph = styled.div`
   margin-right: auto;
   text-align: center;
   background-color: grey;
-  margin-top: 6px;
-  max-width: 100px;
+  margin-top: 4px;
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    margin-top: 6px;
+    max-width: 100px;
+  }
 `;
 
 const GraphFill = styled.div<{ fill: number }>`
@@ -892,16 +961,43 @@ const GraphValue = styled.span`
 `;
 
 const Items = styled.div`
-  display: inline-block;
+  display: block;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 4px;
+  }
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    display: block;
+    margin-top: 4px;
+    margin-left: 0;
+  }
+  // 1200px
+  ${props => props.theme.device.laptop} {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 4px;
+  }
 `;
 
 const Item = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   display: inline-block;
   vertical-align: middle;
   background-color: rgba(0, 0, 0, 0.3);
-  margin-left: 4px;
+  margin-left: 2px;
+  // 475px
+  ${props => props.theme.device.mobile} {
+    width: 20px;
+    height: 20px;
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    margin-left: 4px;
+  }
   &:first-child {
     margin-left: 0px;
   }
