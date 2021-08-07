@@ -122,8 +122,12 @@ const Logo = styled(Link)`
 
 const LogoImg = styled.img`
   display: block;
-  max-height: 110px;
+  max-height: 80px;
   margin: 0 auto;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    max-height: 110px;
+  }
 `;
 
 LogoImg.defaultProps = {
@@ -134,7 +138,11 @@ const MiddleContainer = styled.div`
   text-align: center;
   flex: 0 1 auto;
   min-width: 0px;
-  padding: 0 24px;
+  padding: 0;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    padding: 0 24px;
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -146,6 +154,7 @@ const SearchContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-right: 20px;
   height: 100px;
 `;
 

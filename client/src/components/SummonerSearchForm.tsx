@@ -45,22 +45,43 @@ function SummonerSearchForm({ area, history }: SummonerNameFormProps) {
 }
 
 const SearchFormContent = styled.div<{ area: string }>`
-  width: ${props => (props.area === 'Home' ? '640px' : '260px')};
+  width: ${props => (props.area === 'Home' ? '270px' : '150px')};
   display: ${props => (props.area === 'Home' ? 'inline-block' : 'inline')};
   position: relative;
   text-align: left;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    width: ${props => (props.area === 'Home' ? '450px' : '200px')};
+    display: ${props => (props.area === 'Home' ? 'inline-block' : 'inline')};
+  }
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    width: ${props => (props.area === 'Home' ? '640px' : '260px')};
+    display: ${props => (props.area === 'Home' ? 'inline-block' : 'inline')};
+  }
 `;
 
 const SearchInput = styled.input<{ area: string }>`
   display: block;
   width: 100%;
-  height: ${props => (props.area === 'Home' ? '50px' : '32px')};
-  line-height: ${props => (props.area === 'Home' ? '50px' : '32px')};
+  height: ${props => (props.area === 'Home' ? '40px' : '24px')};
+  line-height: ${props => (props.area === 'Home' ? '40px' : '24px')};
   border: none;
   outline: none;
-  font-size: ${props => (props.area === 'Home' ? '16px' : '12px')};
+  font-size: ${props => (props.area === 'Home' ? '14px' : '6px')};
   padding: 0 50px 0 16px;
   border-radius: 4px;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    font-size: ${props => (props.area === 'Home' ? '14px' : '8px')};
+  }
+
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    height: ${props => (props.area === 'Home' ? '50px' : '32px')};
+    line-height: ${props => (props.area === 'Home' ? '50px' : '32px')};
+    font-size: ${props => (props.area === 'Home' ? '16px' : '12px')};
+  }
 `;
 
 const SearchBtn = styled.button<{ area: string }>`
@@ -73,19 +94,28 @@ const SearchBtn = styled.button<{ area: string }>`
   line-height: normal;
   font: white;
   color: white;
-  top: ${props => (props.area === 'Home' ? '12px' : '8px')};
-  right: ${props => (props.area === 'Home' ? '16px' : '10px')};
+  top: ${props => (props.area === 'Home' ? '8px' : '4px')};
+  right: ${props => (props.area === 'Home' ? '14px' : '8px')};
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    top: ${props => (props.area === 'Home' ? '12px' : '8px')};
+    right: ${props => (props.area === 'Home' ? '16px' : '10px')};
+  }
 `;
 
 const CusFontAwesome = styled(FontAwesomeIcon)<{ area: string }>`
   color: black;
   font-weight: 900;
-  font-size: ${props => (props.area === 'Home' ? '30px' : '14px')};
+  font-size: ${props => (props.area === 'Home' ? '26px' : '10px')};
   display: inline-block;
   line-height: 1;
   text-rendering: auto;
   background-color: white;
   cursor: pointer;
+  // 768px
+  ${props => props.theme.device.tabletM} {
+    font-size: ${props => (props.area === 'Home' ? '30px' : '14px')};
+  }
 `;
 
 export default SummonerSearchForm;

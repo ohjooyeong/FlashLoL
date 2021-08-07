@@ -41,8 +41,12 @@ const Logo = styled.div``;
 
 const LogoImg = styled.img`
   display: block;
-  max-height: 300px;
+  max-height: 200px;
   margin: 0 auto;
+  // 576px
+  ${props => props.theme.device.tabletS} {
+    max-height: 300px;
+  }
 `;
 
 LogoImg.defaultProps = {
