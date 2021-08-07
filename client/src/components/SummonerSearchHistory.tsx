@@ -65,19 +65,27 @@ const SummonerSearchHistoryContainer = styled.div`
 `;
 
 const SummonerSearchHistoryWrap = styled.div`
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 50%;
+  }
 `;
 
 const SummonerHistory = styled.div`
-  width: 18%;
+  width: 31%;
   display: flex;
   margin-top: 1rem;
   align-items: center;
   flex-direction: column;
   font-size: 1rem;
-  margin-right: 0.5rem;
+  margin-right: 0.45rem;
+  // 992px
+  ${props => props.theme.device.tabletL} {
+    width: 18%;
+  }
 `;
 
 const SummonerHistoryName = styled.div`

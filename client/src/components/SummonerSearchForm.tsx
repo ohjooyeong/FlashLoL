@@ -45,19 +45,21 @@ function SummonerSearchForm({ area, history }: SummonerNameFormProps) {
 }
 
 const SearchFormContent = styled.div<{ area: string }>`
-  width: ${props => (props.area === 'Home' ? '270px' : '150px')};
+  width: ${props => (props.area === 'Home' ? '320px' : '150px')};
   display: ${props => (props.area === 'Home' ? 'inline-block' : 'inline')};
   position: relative;
   text-align: left;
+  // 475px
+  ${props => props.theme.device.mobile} {
+    width: ${props => (props.area === 'Home' ? '450px' : '200px')};
+  }
   // 576px
   ${props => props.theme.device.tabletS} {
-    width: ${props => (props.area === 'Home' ? '450px' : '200px')};
-    display: ${props => (props.area === 'Home' ? 'inline-block' : 'inline')};
+    width: ${props => (props.area === 'Home' ? '550px' : '200px')};
   }
   // 768px
   ${props => props.theme.device.tabletM} {
     width: ${props => (props.area === 'Home' ? '640px' : '260px')};
-    display: ${props => (props.area === 'Home' ? 'inline-block' : 'inline')};
   }
 `;
 

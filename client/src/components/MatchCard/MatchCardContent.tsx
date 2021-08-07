@@ -454,6 +454,7 @@ const MatchHistory = styled.div`
   flex-direction: row;
   margin-bottom: 10px;
   background-color: rgba(250, 250, 250, 0.7);
+  line-height: 1.5;
 
   // 768px
   ${props => props.theme.device.tabletM} {
