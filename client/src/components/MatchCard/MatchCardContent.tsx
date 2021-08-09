@@ -211,7 +211,7 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
                           border: '0',
                           verticalAlign: 'middle',
                         }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/perk/${userInfo[0].stats.perk0}.png`}
+                        src={`/images/lol/perk/${userInfo[0].stats.perk0}.png`}
                       ></img>
                     </Rune>
                     <Rune>
@@ -222,7 +222,7 @@ function MatchCardContent({ gamedata, champions }: MatchCardContentProps) {
                           border: '0',
                           verticalAlign: 'middle',
                         }}
-                        src={`http:////opgg-static.akamaized.net/images/lol/perkStyle/${userInfo[0].stats.perkSubStyle}.png`}
+                        src={`/images/lol/perkStyle/${userInfo[0].stats.perkSubStyle}.png`}
                       ></img>
                     </Rune>
                   </Runes>

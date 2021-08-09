@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RIOT_CDN } from '../../config/cdn_value';
+import { Link } from 'react-router-dom';
 
 type MatchCardDetailProps = {
   team1: Array<teamType>;
@@ -96,17 +97,17 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                   <Objects>
                     <img
                       style={{ border: '0', verticalAlign: 'middle' }}
-                      src="https://poro.gg/images/lol/gameInfo/ico-turret.png"
+                      src="/images/lol/gameInfo/ico-turret.png"
                     ></img>
                     <ValueSp>{aboutTeam[0].towerKills}</ValueSp>
                     <img
                       style={{ border: '0', verticalAlign: 'middle' }}
-                      src="https://poro.gg/images/lol/gameInfo/ico-dragon.png"
+                      src="/images/lol/gameInfo/ico-dragon.png"
                     ></img>
                     <ValueSp>{aboutTeam[0].dragonKills}</ValueSp>
                     <img
                       style={{ border: '0', verticalAlign: 'middle' }}
-                      src="https://poro.gg/images/lol/gameInfo/ico-baron-nashor.png"
+                      src="/images/lol/gameInfo/ico-baron-nashor.png"
                     ></img>
                     <ValueSp>{aboutTeam[0].baronKills}</ValueSp>
                   </Objects>
@@ -114,7 +115,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                   <Kda>
                     <img
                       style={{ border: '0', verticalAlign: 'middle' }}
-                      src="https://poro.gg/images/lol/gameInfo/ico-kda.png"
+                      src="/images/lol/gameInfo/ico-kda.png"
                     ></img>
                     {` ${totalTeamScore[0][0]} /`}{' '}
                     <DeathSp>{`${totalTeamScore[0][1]}`}</DeathSp>
@@ -155,13 +156,13 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                             <Rune>
                               <img
                                 style={{ width: '100%', border: '0' }}
-                                src={`http:////opgg-static.akamaized.net/images/lol/perk/${t.stats.perk0}.png`}
+                                src={`/images/lol/perk/${t.stats.perk0}.png`}
                               ></img>
                             </Rune>
                             <Rune>
                               <img
                                 style={{ width: '100%', border: '0' }}
-                                src={`http:////opgg-static.akamaized.net/images/lol/perkStyle/${t.stats.perkSubStyle}.png`}
+                                src={`/images/lol/perkStyle/${t.stats.perkSubStyle}.png`}
                               ></img>
                             </Rune>
                           </MatchDetailOverviewSummonerColRunes>
@@ -169,9 +170,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                             <Dflex>
                               <SName>
                                 <SNameSub
-                                  href={`/summoner/${t.player.summonerName}`}
-                                  target="_blank"
-                                  rel="noreferrer"
+                                  to={`/summoner/${t.player.summonerName}`}
                                 >
                                   {t.player.summonerName}
                                 </SNameSub>
@@ -206,7 +205,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                     width: 'auto',
                                     height: 'auto',
                                   }}
-                                  src="https://poro.gg/images/lol/gameInfo/ico-cs.svg"
+                                  src="/images/lol/gameInfo/ico-cs.svg"
                                 ></img>
                                 <StatSp>{t.stats.totalMinionsKilled}</StatSp>
                               </Ward>
@@ -218,7 +217,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                     width: 'auto',
                                     height: 'auto',
                                   }}
-                                  src="https://poro.gg/images/lol/gameInfo/ico-gold.svg"
+                                  src="/images/lol/gameInfo/ico-gold.svg"
                                 ></img>
                                 <StatSp>
                                   {t.stats.goldEarned > 10000
@@ -240,7 +239,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                     width: 'auto',
                                     height: 'auto',
                                   }}
-                                  src="https://poro.gg/images/lol/gameInfo/ico-ward-control.svg"
+                                  src="/images/lol/gameInfo/ico-ward-control.svg"
                                 ></img>
                                 <StatSp>
                                   {t.stats.visionWardsBoughtInGame}
@@ -335,17 +334,17 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                   <Objects>
                     <img
                       style={{ border: '0', verticalAlign: 'middle' }}
-                      src="https://poro.gg/images/lol/gameInfo/ico-turret.png"
+                      src="/images/lol/gameInfo/ico-turret.png"
                     ></img>
                     <ValueSp>{aboutTeam[1].towerKills}</ValueSp>
                     <img
                       style={{ border: '0', verticalAlign: 'middle' }}
-                      src="https://poro.gg/images/lol/gameInfo/ico-dragon.png"
+                      src="/images/lol/gameInfo/ico-dragon.png"
                     ></img>
                     <ValueSp>{aboutTeam[1].dragonKills}</ValueSp>
                     <img
                       style={{ border: '0', verticalAlign: 'middle' }}
-                      src="https://poro.gg/images/lol/gameInfo/ico-baron-nashor.png"
+                      src="/images/lol/gameInfo/ico-baron-nashor.png"
                     ></img>
                     <ValueSp>{aboutTeam[1].baronKills}</ValueSp>
                   </Objects>
@@ -353,7 +352,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                   <Kda>
                     <img
                       style={{ border: '0', verticalAlign: 'middle' }}
-                      src="https://poro.gg/images/lol/gameInfo/ico-kda.png"
+                      src="/images/lol/gameInfo/ico-kda.png"
                     ></img>
                     {` ${totalTeamScore[1][0]} /`}{' '}
                     <DeathSp>{`${totalTeamScore[1][1]}`}</DeathSp>
@@ -394,13 +393,13 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                             <Rune>
                               <img
                                 style={{ width: '100%', border: '0' }}
-                                src={`http:////opgg-static.akamaized.net/images/lol/perk/${t.stats.perk0}.png`}
+                                src={`/images/lol/perk/${t.stats.perk0}.png`}
                               ></img>
                             </Rune>
                             <Rune>
                               <img
                                 style={{ width: '100%', border: '0' }}
-                                src={`http:////opgg-static.akamaized.net/images/lol/perkStyle/${t.stats.perkSubStyle}.png`}
+                                src={`/images/lol/perkStyle/${t.stats.perkSubStyle}.png`}
                               ></img>
                             </Rune>
                           </MatchDetailOverviewSummonerColRunes>
@@ -408,9 +407,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                             <Dflex>
                               <SName>
                                 <SNameSub
-                                  href={`/summoner/${t.player.summonerName}`}
-                                  target="_blank"
-                                  rel="noreferrer"
+                                  to={`/summoner/${t.player.summonerName}`}
                                 >
                                   {t.player.summonerName}
                                 </SNameSub>
@@ -445,7 +442,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                     width: 'auto',
                                     height: 'auto',
                                   }}
-                                  src="https://poro.gg/images/lol/gameInfo/ico-cs.svg"
+                                  src="/images/lol/gameInfo/ico-cs.svg"
                                 ></img>
                                 <StatSp>{t.stats.totalMinionsKilled}</StatSp>
                               </Ward>
@@ -457,7 +454,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                     width: 'auto',
                                     height: 'auto',
                                   }}
-                                  src="https://poro.gg/images/lol/gameInfo/ico-gold.svg"
+                                  src="/images/lol/gameInfo/ico-gold.svg"
                                 ></img>
                                 <StatSp>
                                   {t.stats.goldEarned > 10000
@@ -479,7 +476,7 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                                     width: 'auto',
                                     height: 'auto',
                                   }}
-                                  src="https://poro.gg/images/lol/gameInfo/ico-ward-control.svg"
+                                  src="/images/lol/gameInfo/ico-ward-control.svg"
                                 ></img>
                                 <StatSp>
                                   {t.stats.visionWardsBoughtInGame}
@@ -904,7 +901,7 @@ const SName = styled.div`
     sans-serif;
 `;
 
-const SNameSub = styled.a`
+const SNameSub = styled(Link)`
   &:hover {
     text-decoration: underline;
   }

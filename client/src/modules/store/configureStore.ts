@@ -17,7 +17,7 @@ export default function configureStore() {
   const middlewares = [sagaMiddleware, logger];
   const enhancer =
     process.env.NODE_ENV === 'production'
-      ? compose(applyMiddleware(...middlewares))
+      ? compose(applyMiddleware(sagaMiddleware))
       : composeWithDevTools(applyMiddleware(...middlewares));
   const store = createStore(rootReducer, enhancer);
   store.sagaTask = sagaMiddleware.run(rootSaga);
