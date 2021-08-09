@@ -168,13 +168,13 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                           <MatchDetailOverviewSummonerColSummoner>
                             <Dflex>
                               <SName>
-                                <a
+                                <SNameSub
                                   href={`/summoner/${t.player.summonerName}`}
                                   target="_blank"
                                   rel="noreferrer"
                                 >
                                   {t.player.summonerName}
-                                </a>
+                                </SNameSub>
                               </SName>
                             </Dflex>
                           </MatchDetailOverviewSummonerColSummoner>
@@ -407,13 +407,13 @@ function MatchCardDetail({ team1, team2, aboutTeams }: MatchCardDetailProps) {
                           <MatchDetailOverviewSummonerColSummoner>
                             <Dflex>
                               <SName>
-                                <a
+                                <SNameSub
                                   href={`/summoner/${t.player.summonerName}`}
                                   target="_blank"
                                   rel="noreferrer"
                                 >
                                   {t.player.summonerName}
-                                </a>
+                                </SNameSub>
                               </SName>
                             </Dflex>
                           </MatchDetailOverviewSummonerColSummoner>
@@ -769,7 +769,7 @@ const MatchDetailOverviewSummonerColChamp = styled.div`
 const ChampLevel = styled.div`
   pointer-events: none;
   position: absolute;
-  top: 0;
+
   right: 0;
   bottom: 0;
   width: 18px;
@@ -900,6 +900,14 @@ const SName = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: Helvetica Neue, Helvetica, Malgun Gothic, -apple-system, Dotum,
+    sans-serif;
+`;
+
+const SNameSub = styled.a`
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Kda = styled.div`
