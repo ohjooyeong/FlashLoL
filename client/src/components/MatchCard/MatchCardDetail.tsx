@@ -799,8 +799,10 @@ const MatchDetailOverviewSummonerColSummoner = styled.div`
   flex: 1;
   min-width: 0;
   margin-left: 4px;
+  line-height: 1;
   display: inline-block;
   vertical-align: middle;
+  height: 16px;
 `;
 
 const MatchDetailOverviewSummonerColKda = styled.div`
@@ -886,6 +888,7 @@ const Dflex = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  height: 16px;
 `;
 
 const SName = styled.div`
@@ -897,9 +900,6 @@ const SName = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  &:hover {
-    border-bottom: 1px solid black;
-  }
 `;
 
 const Kda = styled.div`

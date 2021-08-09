@@ -26,6 +26,9 @@ Typescript와 React, Redux, Redux-saga Riot API를 활용한 롤 전적검색사
 
 ### 배포
 
+- netlify(클라이언트)
+- heroku(서버)
+
 ### 그외 설정
 
 - Git
