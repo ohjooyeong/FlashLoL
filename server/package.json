@@ -8,6 +8,8 @@
     "start": "node index.js",
     "backend": "nodemon index.js",
     "frontend": "npm run start --prefix ../client",
+    "production_mode": "export NODE_ENV=production",
+    "development_mode": "export NODE_ENV=development",
     "dev": "concurrently \"npm run backend\" \"npm run start --prefix ../client \""
   },
   "author": "ohjoo",
