@@ -8,7 +8,10 @@ Typescript와 React, Redux, Redux-saga Riot API를 활용한 롤 전적검색사
 
 소환사명을 검색하며, 최근 매치의 기록들을 볼 수 있고, 천상계 랭커의 최신화된 랭킹 및 점수들을 빠르게 알 수 있다.
 
+클라이언트와 API서버로 이루어져 있고, REST APIs 형식을 따르도록 구성했다.
+
 ### 프로젝트 사이트 링크
+www.flashlol.site
 
 ## 기술스택
 
@@ -19,15 +22,15 @@ Typescript와 React, Redux, Redux-saga Riot API를 활용한 롤 전적검색사
 - Redux-saga
 - Styled-Components
 
-### 서버
+### API 서버
 
 - express(node.js)
 - MongoDB
 
 ### 배포
 
-- GCP(예정)
-- Nginx(예정)
+- GCP
+- Nginx
 - Pm2(예정)
 
 ### 그외 설정
@@ -69,3 +72,10 @@ Typescript와 React, Redux, Redux-saga Riot API를 활용한 롤 전적검색사
 redux-saga를 활용해 비동기적으로 액션을 처리하면서 순수한 객체를 반환하는 과정이 너무 깔끔하다고 느꼈다.
 
 여러 사이트의 디자인을 참고하여 페이지의 UI를 구현하면서 다양한 방식의 CSS기법을 사용할 수 있어 많이 배울 수 있었다.
+
+원래 배포를 하나의 인스턴스로 진행하려했는데 https문제때문에 두개의 인스턴스를 구동 해야했다.
+
+현재 GCP 구조를 클라이언트와 API서버로 나눴기에 두개의 인스턴스를 구동했고,
+
+클라이언트는 nginx & https 를 사용하여 올리는 것에 성공했지만 서버 부분에서도 https를 해야했기에 추가작업을 해야한다. 현재는 서브도메인을 작업하고 nginx를 또 구현해보고 있는 상태다.
+
