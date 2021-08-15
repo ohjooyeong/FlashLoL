@@ -84,7 +84,16 @@ cron.schedule("0 */1 * * *", async () => {
   }
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5000",
+      "https://34.64.247.176",
+      "http://34.64.247.176",
+      "https://flashlol.site",
+    ],
+  })
+);
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
