@@ -91,6 +91,7 @@ app.use(
       "https://35.216.89.56",
       "http://35.216.89.56",
       "https://flashlol.site",
+      "https://www.flashlol.site",
     ],
   })
 );
