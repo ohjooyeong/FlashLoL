@@ -88,8 +88,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5000",
-      "https://34.64.247.176",
-      "http://34.64.247.176",
+      "https://35.216.89.56",
+      "http://35.216.89.56",
       "https://flashlol.site",
     ],
   })
