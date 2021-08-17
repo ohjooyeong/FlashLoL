@@ -6,7 +6,6 @@ import MatchCardList from '../../components/MatchCard/MatchCardList';
 import ProfileCard from '../../components/ProfileCard';
 import Loading from '../../components/Loading';
 import { RootState } from '../../modules';
-import logoImage from '../../assets/flashlollogo2.png';
 import { getSummonerDataAsync } from '../../modules/summoners';
 import Error from '../../components/Error';
 import Seo from '../../components/Seo';
@@ -32,7 +31,6 @@ function SummonerProfilePage({ match }: RouteComponentProps<PathParamsProps>) {
         <Seo
           description={`FlashLoL 소환사 검색: ${term}`}
           title={`소환사 ${term}`}
-          image={logoImage}
         />
         {loading ? (
           <Loading types={'spin'}></Loading>

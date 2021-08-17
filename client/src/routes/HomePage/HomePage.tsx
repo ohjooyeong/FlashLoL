@@ -14,7 +14,6 @@ function HomePage({ history }: RouteComponentProps) {
           'FlashLoL 소환사 검색을 통해 리그오브레전드 전적내역을 확인할 수 있어요!'
         }
         title={'Flash LoL'}
-        image={logoImage}
       />
       <HContainer>
         <MainLogo>

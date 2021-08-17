@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import SummonerRankCard from '../../components/SummonerRankCard';
 import PagePrevNext from '../../components/PagePrevNext';
-import logoImage from '../../assets/flashlollogo2.png';
 import Error from '../../components/Error';
 import Seo from '../../components/Seo';
 
@@ -46,7 +45,6 @@ function SummonerRankingPage({ history }: RouteComponentProps) {
           'FlashLoL 소환사 랭킹을 통해 리그오브레전드 상위권 랭킹을 확인할 수 있어요!'
         }
         title={'소환사 랭킹'}
-        image={logoImage}
       />
       {error ? (
         <Error error={error} />
