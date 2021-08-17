@@ -1,17 +1,21 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
-import Helmet from 'react-helmet';
 import logoImage from '../../assets/flashlollogo2.png';
 import SummonerSearchForm from '../../components/SummonerSearchForm';
 import SummonerSearchHistory from '../../components/SummonerSearchHistory';
+import Seo from '../../components/Seo';
 
 function HomePage({ history }: RouteComponentProps) {
   return (
     <>
-      <Helmet>
-        <title>Flash LoL</title>
-      </Helmet>
+      <Seo
+        description={
+          'FlashLoL 소환사 검색을 통해 리그오브레전드 전적내역을 확인할 수 있어요!'
+        }
+        title={'Flash LoL'}
+        image={logoImage}
+      />
       <HContainer>
         <MainLogo>
           <Logo>
