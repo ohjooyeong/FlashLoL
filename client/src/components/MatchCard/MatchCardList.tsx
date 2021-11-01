@@ -7,10 +7,10 @@ import { getChampions } from '../../modules/champion';
 import Loading from '../Loading';
 
 type MatchCardListProps = {
-  accountId: string;
+  puuid: string;
 };
 
-function MatchCardList({ accountId }: MatchCardListProps) {
+function MatchCardList({ puuid }: MatchCardListProps) {
   const dispatch = useDispatch();
   const { data, loading } = useSelector(
     (state: RootState) => state.game.summonerGameInfo,
@@ -18,7 +18,7 @@ function MatchCardList({ accountId }: MatchCardListProps) {
 
   useEffect(() => {
     dispatch(getChampions());
-    dispatch(getGameInfoAsync.request(accountId));
+    dispatch(getGameInfoAsync.request(puuid));
   }, []);
 
   return (

@@ -57,11 +57,11 @@ router.post("/", async (req, res, next) => {
 
 router.post("/game", async (req, res, next) => {
   const {
-    body: { accountId },
+    body: { puuid },
   } = req;
   try {
     const gameInfo = {};
-    const matchlist = await getMatchListAPI(accountId);
+    const matchlist = await getMatchListAPI(puuid);
     if (matchlist.status && matchlist.status.status_code >= 400) {
       return res.status(matchlist.status.status_code).json({
         apiStatus: {
@@ -74,14 +74,14 @@ router.post("/game", async (req, res, next) => {
     }
     gameInfo["matchlist"] = matchlist;
 
-    gameInfo.matchlist.matches = matchlist.matches.slice(0, 5);
     // await은 Promise 객체를 실행하고 기다려주지만, Promise 배열로는 그렇게 할 수 없기 때문이라는 사실을 알게됨
     // 처음에 구현했던 arr.map을 통해 Promise 배열을 리턴하게 구현했기때문에 await은 의미가 없다.
     const matchDetailList = await Promise.all(
-      gameInfo.matchlist.matches.map((m) => {
-        return getMatchDetailAPI(m.gameId);
+      gameInfo.matchlist.map((m) => {
+        return getMatchDetailAPI(m);
       })
     );
+    console.log(matchDetailList);
     gameInfo["matchDetailList"] = matchDetailList;
 
     return res.status(200).json({ apiStatus: { success: true }, gameInfo });

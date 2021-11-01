@@ -21,6 +21,8 @@ function SummonerProfilePage({ match }: RouteComponentProps<PathParamsProps>) {
     (state: RootState) => state.summoners.summonerProfile,
   );
 
+  console.log(data);
+
   useEffect(() => {
     dispatch(getSummonerDataAsync.request(term));
   }, [term]);
@@ -64,7 +66,7 @@ function SummonerProfilePage({ match }: RouteComponentProps<PathParamsProps>) {
                   </MatchHistoryBoxContainer>
                   <MatchListContainer>
                     <MatchCardList
-                      accountId={data.summonerProfile.info?.accountId}
+                      puuid={data.summonerProfile.info?.puuid}
                     ></MatchCardList>
                   </MatchListContainer>
                 </MatchContainer>

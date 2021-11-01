@@ -2,9 +2,9 @@ import axios from 'axios';
 import { SERVER_URL } from '../config/every_url';
 import { APIStatusDTO } from './summoner';
 
-export async function getGameListAPI(accountId: string) {
+export async function getGameListAPI(puuid: string) {
   const response = await axios.post<GameDTO>(`${SERVER_URL}/summoner/game`, {
-    accountId,
+    puuid,
   });
   return response.data;
 }

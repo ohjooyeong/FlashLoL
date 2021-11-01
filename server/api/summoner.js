@@ -30,10 +30,10 @@ const getSummonerProfileInfo = async (summonerId) => {
   }
 };
 
-const getMatchListAPI = async (summonerAccountId) => {
+const getMatchListAPI = async (puuid) => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/match/v4/matchlists/by-account/${summonerAccountId}`,
+      `${process.env.API_URL_V5}/match/v5/matches/by-puuid/${puuid}/ids`,
       { headers }
     );
     return response.data;
@@ -45,7 +45,7 @@ const getMatchListAPI = async (summonerAccountId) => {
 const getMatchDetailAPI = async (matchId) => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/match/v4/matches/${matchId}`,
+      `${process.env.API_URL_V5}/match/v5/matches/${matchId}`,
       { headers }
     );
     return response.data;
